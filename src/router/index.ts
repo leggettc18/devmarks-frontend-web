@@ -8,12 +8,7 @@ const routes: Array<RouteConfig> = [
         path: "/",
         alias: "/dashboard",
         name: "dashboard",
-        component: () => import("../components/Dashboard.Vue")
-    },
-    {
-        path: "/login",
-        name: "login",
-        component: () => import("../components/Login.vue")
+        component: () => import("../components/HelloWorld.vue")
     }
 ];
 
