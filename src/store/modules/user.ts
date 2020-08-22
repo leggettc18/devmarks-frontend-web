@@ -1,54 +1,31 @@
-import { USER_REQUEST, USER_ERROR, USER_SUCCESS } from "../actions/user";
-import api from "@/api/api";
-import Vue from "vue";
-import { AUTH_LOGOUT } from "../actions/auth";
-import { GetterTree, MutationTree, ActionTree } from "vuex"
+import {
+    getModule,
+    Module,
+    MutationAction,
+    VuexModule,
+} from 'vuex-module-decorators';
+import store from '@/store';
+import { User } from '@/models/user';
+import { fetchUser } from '@/api/api';
 
-class State {
-    status: string = "";
-    profile: any = {}
-};
+@Module({
+    namespaced: true,
+    name: 'users',
+    store,
+    dynamic: true,
+})
+class UsersModule extends VuexModule {
+    user: User | null = null;
 
-const getters = <GetterTree<State, any>>{
-    getProfile: state => state.profile,
-    isProfileLoaded: state => !!state.profile.name
-};
-
-const actions = <ActionTree<State, any>>{
-    [USER_REQUEST]: ({ commit, dispatch }) => {
-        commit(USER_REQUEST);
-        api({ url: "/api/user/me"})
-            .then(resp => {
-                commit(USER_SUCCESS, resp);
-            })
-            .catch(() => {
-                commit(USER_ERROR);
-                dispatch(AUTH_LOGOUT);
-            });
+    get name() {
+        return (this.user && this.user.name) || null;
     }
-};
 
-const mutations = <MutationTree<State>>{
-    [USER_REQUEST]: state => {
-        state.status = "loading"
-    },
-    [USER_SUCCESS]: (state, resp) => {
-        state.status = "success";
-        Vue.set(state, "profile", resp);
-    },
-    [USER_ERROR]: state => {
-        state.status = "error";
-    },
-    [AUTH_LOGOUT]: state => {
-        state.profile = {};
+    @MutationAction
+    async loadUser() {
+        const user = await fetchUser()
+        return { user }
     }
-};
+}
 
-const UserModule = {
-    state: new State(),
-    getters: getters,
-    actions: actions,
-    mutations: mutations
-};
-
-export default UserModule;
+export default getModule(UsersModule);
