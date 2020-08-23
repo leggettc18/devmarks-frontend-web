@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-primary">
       <router-link to="/dashboard" class="navbar-brand">
-        <img id="logo" src="@/assets/logo-inverted.svg" alt="Logo" />
+        <img id="logo" src="./assets/logo-inverted.svg" alt="Logo" />
         Devmarks
       </router-link>
       <div class="navbar-nav mr-auto">
