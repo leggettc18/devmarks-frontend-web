@@ -17,7 +17,6 @@ import { login, setToken, clearToken } from '@/api/api';
 class AuthModule extends VuexModule {
     authState: AuthState = {
         token: localStorage.getItem("user-token") || "",
-        status: "",
     }
 
     get isAuthenticated() {
@@ -36,9 +35,8 @@ class AuthModule extends VuexModule {
     async logout() {
         localStorage.removeItem("user-token");
         clearToken();
-        let authState: AuthState = {
+        const authState: AuthState = {
             token: "",
-            status: "",
         };
         return {
             authState

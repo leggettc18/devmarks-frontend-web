@@ -7,6 +7,11 @@
           <a href="/bookmarks" class="nav-link">Bookmarks</a>
         </li>
       </div>
+      <div class="navbar-nav">
+        <li class="nav-item">
+          <router-link to=/login class="nav-link">Login</router-link>
+        </li>
+      </div>
     </nav>
 
     <div class="container mt-3">

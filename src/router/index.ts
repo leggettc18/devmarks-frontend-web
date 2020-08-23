@@ -9,6 +9,11 @@ const routes: Array<RouteConfig> = [
     alias: "/dashboard",
     name: "dashboard",
     component: () => import("../components/HelloWorld.vue")
+  },
+  {
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/Login.vue")
   }
 ];
 

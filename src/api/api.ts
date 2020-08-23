@@ -10,7 +10,7 @@ import {
 } from '@/models/auth';
 
 export const api = axios.create({
-    baseURL: window.location.protocol + "//" + window.location.host + "/api",
+    baseURL: window.location.protocol + "//" + window.location.hostname + ":" + 9092 + "/api",
 });
 
 export function setToken(token: string) {
@@ -22,20 +22,11 @@ export function clearToken() {
 }
 
 export async function login(creds: Credentials): Promise<AuthState> {
-    let authState: AuthState = {
-        token: "",
-        status: "",
-    };
-    const response = await api.post('/auth/token', {
+    const response = await api.post('/auth/token/', {
         creds,
-    }).then(resp => {
-        authState.token = resp.data.token;
-        authState.status = "success";
-    }).catch(err => {
-        authState.token = "";
-        authState.status = "error";
     });
-    return authState;
+    console.log(response.data.token);
+    return response.data as AuthState;
 }
 
 export async function fetchUser(): Promise<User> {
