@@ -1,0 +1,9 @@
+#logo {
+    width: 2rem;
+}
+
+$theme-colors: (
+    "primary": #59344F
+);
+
+@import "node_modules/bootstrap/scss/bootstrap";
