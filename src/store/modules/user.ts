@@ -18,7 +18,7 @@ class UsersModule extends VuexModule {
     user: User | null = null;
 
     get name() {
-        return (this.user && this.user.name) || null;
+        return (this.user && this.user.email) || null;
     }
 
     @MutationAction

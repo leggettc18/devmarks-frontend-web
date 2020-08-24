@@ -11,7 +11,7 @@
                     <li>{{ loginError }}</li>
                 </ul>
 
-                <form v-on:submit.prevent="onSubmit">
+                <form v-on:submit.prevent>
                     <fieldset class="form-group">
                         <input 
                             type="text" 

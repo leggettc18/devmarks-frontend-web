@@ -10,9 +10,14 @@
           <a href="/bookmarks" class="nav-link">Bookmarks</a>
         </li>
       </div>
-      <div class="navbar-nav">
+      <div v-if="!name" class="navbar-nav">
         <li class="nav-item">
           <router-link to=/login class="nav-link">Login</router-link>
+        </li>
+      </div>
+      <div v-if="name" class="navbar-nav">
+        <li class="nav-item">
+          {{ name }}
         </li>
       </div>
     </nav>
@@ -25,7 +30,21 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
+import auth from "@/store/modules/auth";
+import user from "@/store/modules/user";
+import { setToken } from "@/api/api";
 
 @Component
-export default class App extends Vue {}
+export default class App extends Vue {
+  get name() {
+    if (auth.isAuthenticated) {
+      user.loadUser()
+      .catch((err) => {
+        auth.logout();
+        this.$router.push('/login');
+      });
+    }
+    return user.name;
+  }
+}
 </script>

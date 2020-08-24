@@ -1,7 +1,5 @@
 export interface User {
     email: string;
-    token: string;
-    name: string;
 }
 
 export interface UserSubmit {
