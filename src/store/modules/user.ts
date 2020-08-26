@@ -6,7 +6,7 @@ import {
 } from 'vuex-module-decorators';
 import store from '@/store';
 import { User } from '@/models/user';
-import { fetchUser } from '@/api/api';
+import { Api } from '@/api/api';
 
 @Module({
     namespaced: true,
@@ -23,7 +23,7 @@ class UsersModule extends VuexModule {
 
     @MutationAction
     async loadUser() {
-        const user = await fetchUser()
+        const user = await Api.fetchUser()
         return { user }
     }
 }

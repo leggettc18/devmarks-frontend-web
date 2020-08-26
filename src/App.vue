@@ -32,7 +32,6 @@
 import { Component, Vue } from "vue-property-decorator";
 import auth from "@/store/modules/auth";
 import user from "@/store/modules/user";
-import { setToken } from "@/api/api";
 
 @Component
 export default class App extends Vue {

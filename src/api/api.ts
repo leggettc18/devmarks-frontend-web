@@ -9,26 +9,28 @@ import {
     AuthState,
 } from '@/models/auth';
 
-const api = axios.create({
-    baseURL: window.location.protocol + "//" + window.location.hostname + ":" + 9092 + "/api",
-});
-
-export function setToken(token: string) {
-    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
-
-export function clearToken() {
-    delete api.defaults.headers.common['Authorization'];
-}
-
-export async function login(creds: Credentials): Promise<AuthState> {
-    const response = await api.post('/auth/token/', {
-        ...creds,
+export abstract class Api {
+    private static api = axios.create({
+        baseURL: window.location.protocol + "//" + window.location.hostname + ":" + 9092 + "/api",
     });
-    return response.data as AuthState;
-}
 
-export async function fetchUser(): Promise<User> {
-    const response = await api.get('/user/');
-    return response.data as User;
+    static setToken(token: string) {
+        this.api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    }
+
+    static clearToken() {
+        delete this.api.defaults.headers.common['Authorization'];
+    }
+
+    static async login(creds: Credentials): Promise<AuthState> {
+        const response = await this.api.post('/auth/token/',
+            creds,
+        );
+        return response.data as AuthState;
+    }
+
+    static async fetchUser(): Promise<User> {
+        const response = await this.api.get('/user/');
+        return response.data as User;
+    }
 }

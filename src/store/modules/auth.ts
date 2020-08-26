@@ -6,7 +6,7 @@ import {
 } from 'vuex-module-decorators';
 import store from '@/store';
 import { AuthState, Credentials } from '@/models/auth';
-import { login, setToken, clearToken } from '@/api/api';
+import { Api } from '@/api/api';
 
 @Module({
     namespaced: true,
@@ -25,8 +25,8 @@ class AuthModule extends VuexModule {
 
     @MutationAction
     async login(creds: Credentials) {
-        const authState = await login(creds);
-        setToken(authState.token);
+        const authState = await Api.login(creds);
+        Api.setToken(authState.token);
         localStorage.setItem("user-token", authState.token);
         return { authState };
     }
@@ -34,7 +34,7 @@ class AuthModule extends VuexModule {
     @MutationAction
     async logout() {
         localStorage.removeItem("user-token");
-        clearToken();
+        Api.clearToken();
         const authState: AuthState = {
             token: "",
         };
