@@ -1,9 +1,8 @@
 import axios from "axios";
 import {
-    UserSubmit,
-    UserResponse,
     User,
 } from "@/models/user";
+import { Bookmark } from "@/models/bookmark";
 import {
     Credentials,
     AuthState,
@@ -32,5 +31,10 @@ export abstract class Api {
     static async fetchUser(): Promise<User> {
         const response = await this.api.get('/user/');
         return response.data as User;
+    }
+
+    static async fetchBookmarks(): Promise<Bookmark[]> {
+        const response = await this.api.get('/bookmarks/');
+        return response.data as Bookmark[];
     }
 }

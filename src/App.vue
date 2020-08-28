@@ -7,7 +7,7 @@
       </router-link>
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
-          <a href="/bookmarks" class="nav-link">Bookmarks</a>
+          <router-link to="/bookmarks" class="nav-link">Bookmarks</router-link>
         </li>
       </div>
       <div v-if="!name" class="navbar-nav">
@@ -38,6 +38,10 @@ import { User } from './models/user';
 export default class App extends Vue {
   get name() {
     return user.name;
+  }
+
+  created() {
+    user.loadUser();
   }
 }
 </script>

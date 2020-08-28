@@ -1,0 +1,22 @@
+<template>
+    <p>
+        {{bookmarks}}
+    </p>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator';
+import { Api } from "@/api/api";
+import { Bookmark } from '@/models/bookmark';
+
+@Component
+export default class Login extends Vue{
+    bookmarks: Bookmark[] = []
+
+    async mounted() {
+        const response = await Api.fetchBookmarks();
+        console.log(response);
+        this.bookmarks = response;
+    }
+}
+</script>
