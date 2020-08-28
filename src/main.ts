@@ -10,8 +10,13 @@ Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
 import "@/assets/styles.scss"
+import { Api } from './api/api';
 
 Vue.config.productionTip = false;
+
+if (auth.isAuthenticated) {
+  Api.setToken(auth.authState.token);
+}
 
 new Vue({
   router,

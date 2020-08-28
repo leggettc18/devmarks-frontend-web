@@ -7,6 +7,7 @@ import {
 import store from '@/store';
 import { AuthState, Credentials } from '@/models/auth';
 import { Api } from '@/api/api';
+import user from './user';
 
 @Module({
     namespaced: true,
@@ -28,6 +29,7 @@ class AuthModule extends VuexModule {
         const authState = await Api.login(creds);
         Api.setToken(authState.token);
         localStorage.setItem("user-token", authState.token);
+        user.loadUser();
         return { authState };
     }
 
@@ -38,6 +40,7 @@ class AuthModule extends VuexModule {
         const authState: AuthState = {
             token: "",
         };
+        user.user = null;
         return {
             authState
         };

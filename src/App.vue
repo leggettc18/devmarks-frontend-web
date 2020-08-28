@@ -17,7 +17,7 @@
       </div>
       <div v-if="name" class="navbar-nav">
         <li class="nav-item">
-          {{ name }}
+          <a href="#" class="nav-link">{{ name }}</a>
         </li>
       </div>
     </nav>
@@ -29,20 +29,14 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue, Watch } from "vue-property-decorator";
 import auth from "@/store/modules/auth";
 import user from "@/store/modules/user";
+import { User } from './models/user';
 
 @Component
 export default class App extends Vue {
   get name() {
-    if (auth.isAuthenticated) {
-      user.loadUser()
-      .catch((err) => {
-        auth.logout();
-        this.$router.push('/login');
-      });
-    }
     return user.name;
   }
 }
