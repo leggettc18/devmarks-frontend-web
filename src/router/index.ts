@@ -1,24 +1,44 @@
 import Vue from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
+import VueRouter, { RouteConfig, Route } from "vue-router";
+
+import auth from "@/store/modules/auth";
+
+const ifNotAuthenticated = (to: Route, from: Route, next: Function) => {
+  if (!auth.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/');
+}
+
+const ifAuthenticated = (to: Route, from: Route, next: Function) => {
+  if (auth.isAuthenticated) {
+    next();
+    return;
+  }
+  next('/login');
+}
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    alias: "/dashboard",
-    name: "dashboard",
-    component: () => import("../components/HelloWorld.vue")
+    alias: "/home",
+    name: "home",
+    component: () => import("@/components/HelloWorld.vue")
   },
   {
     path: "/login",
     name: "login",
-    component: () => import("@/views/Login.vue")
+    component: () => import("@/views/Login.vue"),
+    beforeEnter: ifNotAuthenticated
   },
   {
     path: "/bookmarks",
     name: "bookmarks",
-    component: () => import("@/views/Bookmarks.vue")
+    component: () => import("@/views/Bookmarks.vue"),
+    beforeEnter: ifAuthenticated
   }
 ];
 

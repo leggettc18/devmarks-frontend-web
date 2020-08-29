@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-primary">
-      <router-link to="/dashboard" class="navbar-brand">
+      <router-link to="/" class="navbar-brand">
         <img id="logo" src="./assets/logo-inverted.svg" alt="Logo" />
         Devmarks
       </router-link>
@@ -34,6 +34,7 @@ import { Route } from 'vue-router';
 import auth from "@/store/modules/auth";
 import user from "@/store/modules/user";
 import { User } from './models/user';
+import { Api } from '@/api/api';
 
 @Component
 export default class App extends Vue {
@@ -41,11 +42,9 @@ export default class App extends Vue {
     return user.name;
   }
 
-  @Watch('$route', { immediate: true, deep: true })
-  onUrlChange(newVal: Route) {
-    user.loadUser().catch((err) => {
-      auth.logout();
-    });
+  created() {
+    Api.createAuthInterceptor();
+    user.loadUser();
   }
 }
 </script>

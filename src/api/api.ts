@@ -7,6 +7,8 @@ import {
     Credentials,
     AuthState,
 } from '@/models/auth';
+import auth from '@/store/modules/auth';
+import Router from '@/router';
 
 export abstract class Api {
     private static api = axios.create({
@@ -19,6 +21,18 @@ export abstract class Api {
 
     static clearToken() {
         delete this.api.defaults.headers.common['Authorization'];
+    }
+
+    static createAuthInterceptor() {
+        this.api.interceptors.response.use(undefined, function(err) {
+            return new Promise(function (resolve, reject) {
+                if (err.response.status === 403 && err.config && !err.config.__isRetryRequest) {
+                    auth.logout();
+                    Router.push('/login');
+                }
+                throw err;
+            });
+        });
     }
 
     static async login(creds: Credentials): Promise<AuthState> {
