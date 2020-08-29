@@ -40,8 +40,13 @@ export default class App extends Vue {
     return user.name;
   }
 
-  created() {
-    user.loadUser();
+  async created() {
+    try {
+      await user.loadUser();
+    }
+    catch {
+      auth.logout();
+    }
   }
 }
 </script>
