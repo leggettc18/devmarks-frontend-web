@@ -14,9 +14,12 @@ export default class Login extends Vue{
     bookmarks: Bookmark[] = []
 
     async mounted() {
-        const response = await Api.fetchBookmarks();
-        console.log(response);
-        this.bookmarks = response;
+        try {
+            const response = await Api.fetchBookmarks();
+            this.bookmarks = response;
+        } catch(err) {
+            console.error(err);
+        }
     }
 }
 </script>

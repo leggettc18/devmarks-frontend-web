@@ -40,7 +40,7 @@ class AuthModule extends VuexModule {
         const authState: AuthState = {
             token: "",
         };
-        user.user = null;
+        user.unloadUser();
         return {
             authState
         };

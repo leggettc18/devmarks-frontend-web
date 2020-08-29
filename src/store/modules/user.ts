@@ -1,6 +1,8 @@
 import {
     getModule,
     Module,
+    Action,
+    Mutation,
     MutationAction,
     VuexModule,
 } from 'vuex-module-decorators';
@@ -23,8 +25,19 @@ class UsersModule extends VuexModule {
 
     @MutationAction
     async loadUser() {
-        const user = await Api.fetchUser()
+        let user: User | null
+        try {
+        user = await Api.fetchUser()
+        }
+        catch {
+            user = null;
+        }
         return { user }
+    }
+
+    @Mutation
+    unloadUser() {
+        this.user = null;
     }
 }
 
