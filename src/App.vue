@@ -30,6 +30,7 @@
 
 <script lang="ts">
 import { Component, Vue, Watch } from "vue-property-decorator";
+import { Route } from 'vue-router';
 import auth from "@/store/modules/auth";
 import user from "@/store/modules/user";
 import { User } from './models/user';
@@ -40,13 +41,11 @@ export default class App extends Vue {
     return user.name;
   }
 
-  async created() {
-    try {
-      await user.loadUser();
-    }
-    catch {
+  @Watch('$route', { immediate: true, deep: true })
+  onUrlChange(newVal: Route) {
+    user.loadUser().catch((err) => {
       auth.logout();
-    }
+    });
   }
 }
 </script>
