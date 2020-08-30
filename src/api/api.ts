@@ -42,6 +42,10 @@ export abstract class Api {
         return response.data as AuthState;
     }
 
+    static async register(creds: Credentials) {
+        await this.api.post('/users/', creds);
+    }
+
     static async fetchUser(): Promise<User> {
         const response = await this.api.get('/user/');
         return response.data as User;

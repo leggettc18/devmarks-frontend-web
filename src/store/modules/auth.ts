@@ -1,4 +1,5 @@
 import {
+    Action,
     getModule,
     Module,
     Mutation,
@@ -32,6 +33,11 @@ class AuthModule extends VuexModule {
         localStorage.setItem("user-token", authState.token);
         user.loadUser();
         return { authState };
+    }
+
+    @Action
+    async register(creds: Credentials) {
+        await Api.register(creds);
     }
 
     @Mutation
