@@ -2,7 +2,7 @@
   <div id="app">
     <nav class="navbar navbar-expand navbar-dark bg-primary">
       <router-link to="/" class="navbar-brand">
-        <img id="logo" src="./assets/logo-inverted.svg" alt="Logo" />
+        <img id="logo-nav" src="./assets/logo-inverted.svg" alt="Logo" />
         Devmarks
       </router-link>
       <div class="navbar-nav mr-auto">
@@ -24,7 +24,7 @@
       </div>
     </nav>
 
-    <div class="container mt-3">
+    <div class="container h-100 mt-3">
       <router-view />
     </div>
   </div>

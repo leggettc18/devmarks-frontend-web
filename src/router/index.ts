@@ -26,7 +26,7 @@ const routes: Array<RouteConfig> = [
     path: "/",
     alias: "/home",
     name: "home",
-    component: () => import("@/components/HelloWorld.vue")
+    component: () => import("@/views/Home.vue")
   },
   {
     path: "/login",
