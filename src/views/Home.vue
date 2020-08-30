@@ -3,13 +3,13 @@
         <div class="col-sm-12 col-lg-6 align-items-center">
             <div class="mx-auto">
                 <div class="d-flex my-5 py-5 align-items-center justify-content-center">
-                    <img id="logo" class="px-3" src="@/assets/logo.svg" alt="Logo" />
-                    <span class="display-4 text-muted">Devmarks</span>
+                    <img id="logo" class="pr-3" src="@/assets/logo.svg" alt="Logo" />
+                    <span class="display-3 text-muted">Devmarks</span>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-lg-6 px-5" v-if="!isAuthenticated">
-            <div class="col-md-8 card col-xs-12 my-5">
+            <div class="col-md-8 offset-md-2 card col-xs-12 my-md-5">
                 <div class="card-body">
                 <h1 class="text-xs-center card-title">Register</h1>
 
