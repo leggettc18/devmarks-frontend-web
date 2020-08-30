@@ -1,6 +1,7 @@
 import {
     getModule,
     Module,
+    Mutation,
     MutationAction,
     VuexModule,
 } from 'vuex-module-decorators';
@@ -33,17 +34,12 @@ class AuthModule extends VuexModule {
         return { authState };
     }
 
-    @MutationAction
-    async logout() {
+    @Mutation
+    logout() {
         localStorage.removeItem("user-token");
         Api.clearToken();
-        const authState: AuthState = {
-            token: "",
-        };
+        this.authState.token = "";
         user.unloadUser();
-        return {
-            authState
-        };
     }
 }
 

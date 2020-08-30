@@ -13,12 +13,16 @@ import { Bookmark } from '@/models/bookmark';
 export default class Login extends Vue{
     bookmarks: Bookmark[] = []
 
+    ignoreError() {
+        return true;
+    }
+
     async mounted() {
         try {
             const response = await Api.fetchBookmarks();
             this.bookmarks = response;
         } catch(err) {
-            console.error(err);
+            this.ignoreError();
         }
     }
 }

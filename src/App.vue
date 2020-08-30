@@ -6,9 +6,11 @@
         Devmarks
       </router-link>
       <div class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <router-link to="/bookmarks" class="nav-link">Bookmarks</router-link>
-        </li>
+        <div v-if="name">
+          <li class="nav-item">
+            <router-link to="/bookmarks" class="nav-link">Bookmarks</router-link>
+          </li>
+        </div>
       </div>
       <div v-if="!name" class="navbar-nav">
         <li class="nav-item">
