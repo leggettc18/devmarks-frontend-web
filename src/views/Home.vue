@@ -1,17 +1,22 @@
 <template>
-    <div class="home-page">
-    <div class="row align-items-center h-100">
-        <div class="col-9 mx-auto">
-            <div class="d-flex my-5 py-5 align-items-center justify-content-center">
-                <img id="logo" class="px-3" src="@/assets/logo.svg" alt="Logo" />
-                <span class="display-4 text-muted">Devmarks</span>
+    <div class="row home-page h-100">
+        <div class="col-sm-12 col-lg-6 align-items-center">
+            <div class="mx-auto">
+                <div class="d-flex my-5 py-5 align-items-center justify-content-center">
+                    <img id="logo" class="px-3" src="@/assets/logo.svg" alt="Logo" />
+                    <span class="display-4 text-muted">Devmarks</span>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row" v-if="!isAuthenticated">
-            <div class="col-md-6 offset-md-3 col-xs-12">
-                <h1 class="text-xs-center">Register</h1>
+        <div class="col-sm-12 col-lg-6" v-if="!isAuthenticated">
+            <div class="col-md-8 card col-xs-12 my-5">
+                <div class="card-body">
+                <h1 class="text-xs-center card-title">Register</h1>
 
+                <p class="text-xs-center">
+                    Already have an account?<router-link to="/register"> Sign in! </router-link>
+                </p>
+                
                 <ul class="error-messages" v-if="registerError">
                     <li>{{ registerError }}</li>
                 </ul>
@@ -40,6 +45,7 @@
                         Register
                     </button>
                 </form>
+                </div>
             </div>
         </div>
     </div>

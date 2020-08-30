@@ -24,7 +24,7 @@
       </div>
     </nav>
 
-    <div class="container h-100 mt-3">
+    <div class="container-fluid h-100 mt-3">
       <router-view />
     </div>
   </div>
