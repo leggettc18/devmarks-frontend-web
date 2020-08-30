@@ -8,7 +8,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-lg-6" v-if="!isAuthenticated">
+        <div class="col-sm-12 col-lg-6 px-5" v-if="!isAuthenticated">
             <div class="col-md-8 card col-xs-12 my-5">
                 <div class="card-body">
                 <h1 class="text-xs-center card-title">Register</h1>
@@ -16,7 +16,7 @@
                 <p class="text-xs-center">
                     Already have an account?<router-link to="/register"> Sign in! </router-link>
                 </p>
-                
+
                 <ul class="error-messages" v-if="registerError">
                     <li>{{ registerError }}</li>
                 </ul>
