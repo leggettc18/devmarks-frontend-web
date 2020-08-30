@@ -46,7 +46,9 @@ export default class App extends Vue {
 
   created() {
     Api.createAuthInterceptor();
-    user.loadUser();
+    if (auth.isAuthenticated) {
+      user.loadUser();
+    }
   }
 }
 </script>
