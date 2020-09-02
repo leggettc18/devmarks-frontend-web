@@ -9,8 +9,7 @@
             </div>
         </div>
         <div class="col-sm-12 col-lg-6 px-5" v-if="!isAuthenticated">
-            <div class="col-md-8 offset-md-2 card col-xs-12 my-md-5">
-                <div class="card-body">
+            <b-card class="col-md-8 offset-md-2 col-xs-12 my-md-5">
                 <h1 class="text-xs-center card-title">Register</h1>
 
                 <p class="text-xs-center">
@@ -56,8 +55,7 @@
                         Register
                     </b-button>
                 </b-form>
-                </div>
-            </div>
+            </b-card>
         </div>
     </div>
 </template>
