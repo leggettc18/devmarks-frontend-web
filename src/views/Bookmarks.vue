@@ -1,7 +1,11 @@
 <template>
-    <p>
-        {{bookmarks}}
-    </p>
+    <div>
+        <div v-for="bookmark in bookmarks" :key="bookmark">
+            <b-card class="m-2" bg-variant="primary" text-variant="white" :title="bookmark.Name">
+                <b-link class="text-white" :href="bookmark.URL">{{bookmark.URL}}</b-link>
+            </b-card>
+        </div>
+    </div>
 </template>
 
 <script lang="ts">
