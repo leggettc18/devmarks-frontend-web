@@ -1,28 +1,25 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-primary">
-      <router-link to="/" class="navbar-brand">
+    <b-navbar toggleable="lg" type="dark" variant="primary">
+      <b-navbar-brand to="/">
         <img id="logo-nav" src="./assets/logo-inverted.svg" alt="Logo" />
         Devmarks
-      </router-link>
-      <div class="navbar-nav mr-auto">
-        <div v-if="name">
-          <li class="nav-item">
-            <router-link to="/bookmarks" class="nav-link">Bookmarks</router-link>
-          </li>
-        </div>
-      </div>
-      <div v-if="!name" class="navbar-nav">
-        <li class="nav-item">
-          <router-link to=/login class="nav-link">Login</router-link>
-        </li>
-      </div>
-      <div v-if="name" class="navbar-nav">
-        <li class="nav-item">
-          <a href="#" class="nav-link">{{ name }}</a>
-        </li>
-      </div>
-    </nav>
+      </b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <b-navbar-nav v-if="name" class="mr-auto">
+          <b-nav-item to="/bookmarks">Bookmarks</b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav v-if="!name">
+          <b-nav-item to=/login>Login</b-nav-item>
+        </b-navbar-nav>
+        <b-navbar-nav v-if="name">
+          <b-nav-item href="#">{{ name }}</b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
 
     <div class="container-fluid h-100 mt-3">
       <router-view />
