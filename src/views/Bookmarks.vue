@@ -1,8 +1,8 @@
 <template>
     <div>
         <div v-for="bookmark in bookmarks" :key="bookmark">
-            <b-card class="m-2" bg-variant="primary" text-variant="white" :title="bookmark.Name">
-                <b-link class="text-white" :href="bookmark.URL">{{bookmark.URL}}</b-link>
+            <b-card class="m-2" bg-variant="primary" text-variant="white" :title="bookmark.name">
+                <b-link class="text-white" :href="bookmark.url">{{bookmark.url}}</b-link>
             </b-card>
         </div>
     </div>
