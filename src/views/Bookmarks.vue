@@ -93,6 +93,7 @@ export default class Login extends Vue{
         } catch(err) {
             this.ignoreError();
         }
-        this.createModalShow = false;    }
+        this.createModalShow = false;
+    }
 }
 </script>
