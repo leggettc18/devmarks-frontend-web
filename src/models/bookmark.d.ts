@@ -4,3 +4,9 @@ export interface Bookmark {
     url: string,
     color: string
 }
+
+export interface BookmarkCreate {
+    name: string,
+    url: string,
+    color?: string
+}

@@ -2,7 +2,7 @@ import axios from "axios";
 import {
     User,
 } from "@/models/user";
-import { Bookmark } from "@/models/bookmark";
+import { Bookmark, BookmarkCreate } from "@/models/bookmark";
 import {
     Credentials,
     AuthState,
@@ -54,5 +54,10 @@ export abstract class Api {
     static async fetchBookmarks(): Promise<Bookmark[]> {
         const response = await this.api.get('/bookmarks/');
         return response.data as Bookmark[];
+    }
+
+    static async createBookmark(bookmark: BookmarkCreate): Promise<number> {
+        const response = await this.api.post('/bookmarks/', bookmark);
+        return response.data.id;
     }
 }
