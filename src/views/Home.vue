@@ -1,12 +1,34 @@
 <template>
     <b-row class="home-page h-100">
-        <div class="col-sm-12 col-lg-6 align-items-center">
+        <div class="col-sm-12 col-lg-6 align-items-center p-3">
+            <b-carousel
+                id="carousel-home"
+                v-model="slide"
+                :interval="6000"
+                controls
+                indicators
+                background="#ababab"
+                img-width="1024"
+                img-height="480"
+                style="text-shadow: 0.1rem 0.1rem 0.3rem #333;"
+                @sliding-start="onSlideStart"
+                @sliding-end="onSlideEnd"
+            >
+            <b-carousel-slide img-blank>
             <div class="mx-auto">
-                <div class="d-flex my-5 py-5 align-items-center justify-content-center">
-                    <b-img id="logo" class="pr-3" src="../assets/logo.svg" alt="Logo" />
-                    <span class="display-3 text-muted">Devmarks</span>
+                <div class="d-flex my-5 py-3 align-items-center justify-content-center">
+                    <b-img id="logo" class="mr-3" src="../assets/logo.svg" alt="Logo" style="filter: drop-shadow( 0.1rem 0.4rem 0.3rem #333 );"/>
+                    <span class="display-3">Devmarks</span>
                 </div>
             </div>
+            </b-carousel-slide>
+            <b-carousel-slide caption="Organizations" img-blank img-alt="Organizations">
+                <p>
+                    Share bookmarks to valuable resources and documentation with your
+                    co-workers using Organizations!
+                </p>
+            </b-carousel-slide>
+            </b-carousel>
         </div>
         <div class="col-sm-12 col-lg-6 px-5" v-if="!isAuthenticated">
             <b-card class="col-md-10 offset-md-2 col-sm-12 my-md-5">
@@ -69,6 +91,8 @@ export default class Home extends Vue{
     email = '';
     password = '';
     registerError = '';
+    slide = 0;
+    sliding: boolean | null = null;
 
     get isAuthenticated() {
         return auth.isAuthenticated;
@@ -85,6 +109,14 @@ export default class Home extends Vue{
                 console.error(err);
                 this.registerError = 'Invalid username or password';
         });
+    }
+
+    onSlideStart(slide: number) {
+        this.sliding = true;
+    }
+
+    onSlideEnd(slide: number) {
+        this.sliding = false;
     }
 }
 </script>
