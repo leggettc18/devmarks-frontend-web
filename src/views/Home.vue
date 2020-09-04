@@ -16,7 +16,7 @@
             >
             <b-carousel-slide img-src="../assets/background.jpg">
             <div class="mx-auto">
-                <div class="d-flex my-5 align-items-center justify-content-center">
+                <div class="d-flex my-5 py-5 align-items-center justify-content-center">
                     <b-img id="logo" class="mr-3" src="../assets/logo.svg" alt="Logo" style="filter: drop-shadow( 0.1rem 0.4rem 0.3rem #333 );"/>
                     <span class="display-3">Devmarks</span>
                 </div>
