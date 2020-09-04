@@ -1,9 +1,10 @@
 <template>
     <div class="auth-page">
-        <div class="row">
+        <b-row>
             <div class="col-md-6 offset-md-3 col-xs-12">
-                <h1 class="text-xs-center">Sign in</h1>
-                <p class="text-xs-center">
+                <b-img center thumbnail rounded id="sign-in-logo" src="../assets/logo.svg"></b-img>
+                <h1 class="text-center">Sign in</h1>
+                <p class="text-center">
                     <router-link to="/register"> Need an account? </router-link>
                 </p>
 
@@ -47,7 +48,7 @@
                     </b-button>
                 </b-form>
             </div>
-        </div>
+        </b-row>
     </div>
 </template>
 

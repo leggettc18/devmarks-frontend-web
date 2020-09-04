@@ -1,15 +1,15 @@
 <template>
-    <div class="row home-page h-100">
+    <b-row class="home-page h-100">
         <div class="col-sm-12 col-lg-6 align-items-center">
             <div class="mx-auto">
                 <div class="d-flex my-5 py-5 align-items-center justify-content-center">
-                    <img id="logo" class="pr-3" src="@/assets/logo.svg" alt="Logo" />
+                    <b-img id="logo" class="pr-3" src="../assets/logo.svg" alt="Logo" />
                     <span class="display-3 text-muted">Devmarks</span>
                 </div>
             </div>
         </div>
         <div class="col-sm-12 col-lg-6 px-5" v-if="!isAuthenticated">
-            <b-card class="col-md-8 offset-md-2 col-xs-12 my-md-5">
+            <b-card class="col-md-10 offset-md-2 col-sm-12 my-md-5">
                 <h1 class="text-xs-center card-title">Register</h1>
 
                 <p class="text-xs-center">
@@ -57,7 +57,7 @@
                 </b-form>
             </b-card>
         </div>
-    </div>
+    </b-row>
 </template>
 
 <script lang="ts">

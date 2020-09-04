@@ -2,15 +2,15 @@
   <div id="app">
     <b-navbar toggleable="lg" type="dark" variant="primary">
       <b-navbar-brand to="/">
-        <img id="logo-nav" src="./assets/logo-inverted.svg" alt="Logo" />
+        <b-img id="logo-nav" src="./assets/logo-inverted.svg" alt="Logo" />
         Devmarks
       </b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
       <b-collapse id="nav-collapse" is-nav>
-        <b-navbar-nav v-if="name" class="mr-auto">
-          <b-nav-item to="/bookmarks">Bookmarks</b-nav-item>
+        <b-navbar-nav class="mr-auto">
+          <b-nav-item v-if="name" to="/bookmarks">Bookmarks</b-nav-item>
         </b-navbar-nav>
         <b-navbar-nav v-if="!name">
           <b-nav-item to=/login>Login</b-nav-item>
@@ -21,9 +21,9 @@
       </b-collapse>
     </b-navbar>
 
-    <div class="container-fluid h-100 mt-3">
+    <b-container fluid="md" class="h-100 mt-3">
       <router-view />
-    </div>
+    </b-container>
   </div>
 </template>
 
