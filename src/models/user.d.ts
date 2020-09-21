@@ -1,12 +1,12 @@
 export interface User {
-    email: string;
+  email: string;
 }
 
 export interface UserSubmit {
-    email: string;
-    password: string;
+  email: string;
+  password: string;
 }
 
 export interface UserResponse {
-    user: User;
+  user: User;
 }

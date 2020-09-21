@@ -5,15 +5,3 @@
 #logo {
     width: 8rem;
 }
-
-#sign-in-logo {
-    width: 7rem;
-    margin: 1rem;
-}
-
-$theme-colors: (
-    "primary": #59344F
-);
-
-@import "node_modules/bootstrap/scss/bootstrap";
-@import "node_modules/bootstrap-vue/src/index.scss";

@@ -9,8 +9,9 @@ import { BootstrapVue, IconsPlugin } from "bootstrap-vue";
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 
-import "@/assets/styles.scss"
-import { Api } from './api/api';
+import "@/assets/styles.scss";
+import { Api } from "./api/api";
+import vuetify from "./plugins/vuetify";
 
 Vue.config.productionTip = false;
 
@@ -21,5 +22,6 @@ if (auth.isAuthenticated) {
 new Vue({
   router,
   store,
+  vuetify,
   render: h => h(App)
 }).$mount("#app");

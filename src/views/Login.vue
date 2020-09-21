@@ -1,79 +1,76 @@
 <template>
-    <div class="auth-page">
-        <b-row>
-            <div class="col-md-6 offset-md-3 col-xs-12">
-                <b-img center thumbnail rounded id="sign-in-logo" src="../assets/logo.svg"></b-img>
-                <h1 class="text-center">Sign in</h1>
-                <p class="text-center">
-                    <router-link to="/register"> Need an account? </router-link>
-                </p>
+    <v-row 
+      align="center"
+      justify="center"
+      class="text-center"
+    >
+      <v-col
+        cols="12"
+        sm="8"
+        md="4"
+      >
+        <v-row justify="center">
+          <v-img
+            src="../assets/logo.svg"
+            max-width="100"
+          />
+        </v-row>
+        <div class="text-h4 text-center">Sign in</div>
 
-                <ul class="error-messages" v-if="loginError">
-                    <li>{{ loginError }}</li>
-                </ul>
+        <ul class="error-messages" v-if="loginError">
+          <li>{{ loginError }}</li>
+        </ul>
 
-                <b-form @submit = "onSubmit">
-                    <b-form-group
-                        id="input-email-group"
-                        label="Email address:"
-                        label-for="input-email"
-                    >
-                        <b-form-input 
-                            id="input-email"
-                            type="email" 
-                            required
-                            v-model="email"
-                            placeholder="Email"
-                        />
-                    </b-form-group>
-                    <b-form-group
-                        id="input-password-group"
-                        label="Password:"
-                        label-for="input-password"
-                    >
-                        <b-form-input
-                            required
-                            id="input-password"
-                            type="password"
-                            v-model="password"
-                            placeholder="Password"
-                        />
-                    </b-form-group>
-                    <b-button
-                        type="submit"
-                        variant="primary"
-                        class="pull-xs-right"
-                    >
-                        Sign in
-                    </b-button>
-                </b-form>
-            </div>
-        </b-row>
-    </div>
+        <v-form ref="form" @submit="onSubmit">
+            <v-text-field
+              id="input-email"
+              type="email"
+              required
+              v-model="email"
+              placeholder="Email"
+              label="Email address:"
+            ></v-text-field>
+            <v-text-field
+              required
+              id="input-password"
+              type="password"
+              v-model="password"
+              placeholder="Password"
+              label="Password:"
+            ></v-text-field>
+          <v-btn type="submit" color="primary">
+            Sign in
+          </v-btn>
+          <p class="text-right">
+            <router-link to="/register"> Need an account? </router-link>
+          </p>
+        </v-form>
+      </v-col>
+    </v-row>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
-import auth from '@/store/modules/auth';
+import { Vue, Component } from "vue-property-decorator";
+import auth from "@/store/modules/auth";
 
 @Component
-export default class Login extends Vue{
-    email = '';
-    password = '';
-    loginError = '';
+export default class Login extends Vue {
+  email = "";
+  password = "";
+  loginError = "";
 
-    onSubmit(evt: Event) {
-        evt.preventDefault();
-        auth
-            .login({
-                email: this.email,
-                password: this.password,
-            })
-            .then(() => this.$router.push('/'))
-            .catch((err) => {
-                console.error(err);
-                this.loginError = 'Invalid username or password';
-            });
-    }
+  onSubmit(evt: Event) {
+    evt.preventDefault();
+    auth
+      .login({
+        email: this.email,
+        password: this.password
+      })
+      .then(() => this.$router.push("/"))
+      .catch(err => {
+        console.error(err);
+        this.loginError = "Invalid username or password";
+      });
+  }
 }
 </script>

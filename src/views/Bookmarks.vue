@@ -1,99 +1,113 @@
 <template>
-    <div>
-        <b-modal id="bookmark-add-modal" v-model="createModalShow">
-            <b-form-group
-                id="create-bookmark-name"
-                label="Name:"
-                label-for="create-name"
+    <v-row align="center" justify="center">
+      <v-col
+        cols="12"
+        sm="8"
+        md="4"
+      >
+      <v-row justify="center">
+        <v-dialog id="bookmark-add-modal" v-model="createModalShow">
+          <template v-slot:activator="{on, attrs}">
+            <v-btn 
+              id="show-btn" 
+              color="primary" 
+              dark
+              v-bind="attrs"
+              v-on="on"
             >
-                <b-form-input
-                    id="create-name"
-                    type="text"
-                    v-model="createdBookmark.name"
-                    placeholder="Name"
-                />
-            </b-form-group>
-            <b-form-group
-                id="create-bookmark-url"
-                label="URL:"
-                label-for="create-url"
+              Add Bookmark
+            </v-btn>
+          </template>
+          <v-card>
+            <v-card-text>
+            <v-text-field
+              id="create-name"
+              type="text"
+              v-model="createdBookmark.name"
+              placeholder="Name"
+              label="Name:"
+            ></v-text-field>
+            <v-text-field
+              id="create-url"
+              type="text"
+              v-model="createdBookmark.url"
+              placeholder="URL"
+              label="URL:"
+            ></v-text-field>
+            <v-text-field
+              id="create-color"
+              type="text"
+              v-model="createdBookmark.color"
+              placeholder="#FFFFFF"
+              label="Color:"
+            ></v-text-field>
+            </v-card-text>
+
+          <v-card-actions>
+            <v-btn
+              class="primary"
+              @click="onCreateSubmit"
             >
-                <b-form-input
-                    id="create-url"
-                    type="text"
-                    v-model="createdBookmark.url"
-                    placeholder="URL"
-                />
-            </b-form-group>
-            <b-form-group
-                id="create-bookmark-color"
-                label="Color:"
-                label-for="create-color"
-            >
-                <b-form-input
-                    id="create-color"
-                    type="text"
-                    v-model="createdBookmark.color"
-                    placeholder="#FFFFFF"
-                />
-            </b-form-group>
-            
-            <template v-slot:modal-footer>
-                <b-button
-                    variant="primary"
-                    size="sm"
-                    class="float-right"
-                    @click="onCreateSubmit"
-                >
-                    Submit
-                </b-button>
-            </template>
-        </b-modal>
-        <b-button id="show-btn" variant="primary" @click="createModalShow = true">Add Bookmark</b-button>
-        <div v-for="bookmark in bookmarks" :key="bookmark">
-            <b-card class="m-2" bg-variant="primary" text-variant="white" :title="bookmark.name">
-                <b-link class="text-white" :href="bookmark.url">{{bookmark.url}}</b-link>
-            </b-card>
-        </div>
+              Submit
+            </v-btn>
+          </v-card-actions>
+          </v-card>
+        </v-dialog>
+    </v-row>
+    <div v-for="bookmark in bookmarks" :key="bookmark">
+      <v-card
+        class="my-2"
+        color="primary"
+        dark
+      >
+        <v-card-title>{{bookmark.name}}</v-card-title>
+        <v-card-text>
+          <a class="white--text" :href="bookmark.url">{{
+            bookmark.url
+          }}</a>
+        </v-card-text>
+      </v-card>
     </div>
+      </v-col>
+    </v-row>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from 'vue-property-decorator';
+import { Vue, Component } from "vue-property-decorator";
 import { Api } from "@/api/api";
-import { Bookmark, BookmarkCreate } from '@/models/bookmark';
+import { Bookmark, BookmarkCreate } from "@/models/bookmark";
 
 @Component
-export default class Login extends Vue{
-    bookmarks: Bookmark[] = [];
-    createdBookmark: BookmarkCreate = {
-        name: "",
-        url: "",
-        color: ""
-    };
-    createModalShow = false;
+export default class Login extends Vue {
+  bookmarks: Bookmark[] = [];
+  createdBookmark: BookmarkCreate = {
+    name: "",
+    url: "",
+    color: ""
+  };
+  createModalShow = false;
 
-    ignoreError() {
-        return true;
-    }
+  ignoreError() {
+    return true;
+  }
 
-    async mounted() {
-        try {
-            const response = await Api.fetchBookmarks();
-            this.bookmarks = response;
-        } catch(err) {
-            this.ignoreError();
-        }
+  async mounted() {
+    try {
+      const response = await Api.fetchBookmarks();
+      this.bookmarks = response;
+    } catch (err) {
+      this.ignoreError();
     }
+  }
 
-    async onCreateSubmit(evt: Event) {
-        evt.preventDefault();
-        try {
-            const response = await Api.createBookmark(this.createdBookmark);
-        } catch(err) {
-            this.ignoreError();
-        }
-        this.createModalShow = false;
+  async onCreateSubmit(evt: Event) {
+    evt.preventDefault();
+    try {
+      const response = await Api.createBookmark(this.createdBookmark);
+    } catch (err) {
+      this.ignoreError();
     }
+    this.createModalShow = false;
+  }
 }
 </script>

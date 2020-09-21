@@ -8,16 +8,16 @@ const ifNotAuthenticated = (to: Route, from: Route, next: Function) => {
     next();
     return;
   }
-  next('/');
-}
+  next("/");
+};
 
 const ifAuthenticated = (to: Route, from: Route, next: Function) => {
   if (auth.isAuthenticated) {
     next();
     return;
   }
-  next('/login');
-}
+  next("/login");
+};
 
 Vue.use(VueRouter);
 

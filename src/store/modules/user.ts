@@ -1,44 +1,43 @@
 import {
-    getModule,
-    Module,
-    Action,
-    Mutation,
-    MutationAction,
-    VuexModule,
-} from 'vuex-module-decorators';
-import store from '@/store';
-import { User } from '@/models/user';
-import { Api } from '@/api/api';
+  getModule,
+  Module,
+  Action,
+  Mutation,
+  MutationAction,
+  VuexModule
+} from "vuex-module-decorators";
+import store from "@/store";
+import { User } from "@/models/user";
+import { Api } from "@/api/api";
 
 @Module({
-    namespaced: true,
-    name: 'users',
-    store,
-    dynamic: true,
+  namespaced: true,
+  name: "users",
+  store,
+  dynamic: true
 })
 class UsersModule extends VuexModule {
-    user: User | null = null;
+  user: User | null = null;
 
-    get name() {
-        return (this.user && this.user.email) || null;
-    }
+  get name() {
+    return (this.user && this.user.email) || null;
+  }
 
-    @MutationAction
-    async loadUser() {
-        let user: User | null
-        try {
-        user = await Api.fetchUser()
-        }
-        catch {
-            user = null;
-        }
-        return { user }
+  @MutationAction
+  async loadUser() {
+    let user: User | null;
+    try {
+      user = await Api.fetchUser();
+    } catch {
+      user = null;
     }
+    return { user };
+  }
 
-    @Mutation
-    unloadUser() {
-        this.user = null;
-    }
+  @Mutation
+  unloadUser() {
+    this.user = null;
+  }
 }
 
 export default getModule(UsersModule);
