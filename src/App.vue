@@ -28,13 +28,24 @@
           v-model="group"
           active-class="primary--text text--accent-4"
         >
-          <v-list-item>
-            <v-list-item-icon>
-              <v-icon>mdi-bookmark</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title><router-link to="bookmarks">Bookmarks</router-link></v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
+          <router-link class="nav-link" to="home">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-home</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Home</v-list-item-title>
+            </v-list-item>
+          </router-link>
+          <router-link class="nav-link" to="bookmarks">
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-bookmark</v-icon>
+              </v-list-item-icon>
+              <v-list-item-title>Bookmarks</v-list-item-title>
+            </v-list-item>
+          </router-link>
+      </v-list-item-group>
+
       </v-list>
     </v-navigation-drawer>
     <v-main>
