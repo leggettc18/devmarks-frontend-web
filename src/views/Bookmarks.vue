@@ -19,6 +19,7 @@
             </v-btn>
           </template>
           <v-card>
+            <v-card-title>Add Bookmark</v-card-title>
             <v-card-text>
             <v-text-field
               id="create-name"
@@ -44,12 +45,14 @@
             </v-card-text>
 
           <v-card-actions>
-            <v-btn
-              class="primary"
-              @click="onCreateSubmit"
-            >
-              Submit
-            </v-btn>
+            <v-row justify="end" class="mx-2">
+              <v-btn
+                class="primary"
+                @click="onCreateSubmit"
+              >
+                Submit
+              </v-btn>
+            </v-row>
           </v-card-actions>
           </v-card>
         </v-dialog>
