@@ -61,10 +61,6 @@ export default class Register extends Vue {
   slide = 0;
   sliding: boolean | null = null;
 
-  get isAuthenticated() {
-    return auth.isAuthenticated;
-  }
-
   onSubmit(evt: Event) {
     evt.preventDefault();
     auth
