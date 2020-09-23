@@ -65,7 +65,7 @@
       >
         <v-card-title>{{bookmark.name}}</v-card-title>
         <v-card-text>
-          <a class="white--text" :href="bookmark.url">{{
+          <a class="white--text" :href="`https://${bookmark.url}`">{{
             bookmark.url
           }}</a>
         </v-card-text>
