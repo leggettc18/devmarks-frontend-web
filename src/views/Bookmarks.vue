@@ -6,7 +6,7 @@
         md="4"
       >
       <v-row justify="center">
-        <v-dialog id="bookmark-add-modal" v-model="createModalShow">
+        <v-dialog id="bookmark-add-modal" v-model="createModalShow" width="750">
           <template v-slot:activator="{on, attrs}">
             <v-btn 
               id="show-btn" 
