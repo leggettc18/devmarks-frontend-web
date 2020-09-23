@@ -8,7 +8,7 @@
       />
       </v-col>
       <v-col cols="6" sm="4">
-      <p class="text-h1">
+      <p class="text-h1 text--secondary">
         Devmarks
       </p>
       </v-col>
