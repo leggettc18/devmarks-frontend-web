@@ -1,8 +1,8 @@
 <template>
   <v-app>
-    <v-app-bar app color="primary" dark v-if="name">
+    <v-app-bar app color="primary" dark clipped-left v-if="name">
       <div class="d-flex align-center">
-        <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
         <v-img
           alt="Vuetify Logo"
           class="shrink mr-2"
@@ -17,8 +17,8 @@
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
-      absolute
-      temporary
+      app
+      clipped
     >
       <v-list
         nav
