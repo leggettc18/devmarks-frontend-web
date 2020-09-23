@@ -44,9 +44,19 @@
               <v-list-item-title>Bookmarks</v-list-item-title>
             </v-list-item>
           </router-link>
-      </v-list-item-group>
-
+        </v-list-item-group>
       </v-list>
+      <template v-slot:append>
+        <div class="pa-2">
+          <v-btn
+            color="primary"
+            block
+          >
+            Logout
+          </v-btn>
+        </div>
+      </template>
+
     </v-navigation-drawer>
     <v-main>
       <v-container
