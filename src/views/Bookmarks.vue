@@ -6,7 +6,12 @@
         md="4"
       >
       <v-row justify="center">
-        <v-dialog id="bookmark-add-modal" v-model="createModalShow" width="750">
+        <v-dialog
+          id="bookmark-add-modal"
+          :fullscreen="$vuetify.breakpoint.xsOnly"
+          v-model="createModalShow"
+          width="750"
+        >
           <template v-slot:activator="{on, attrs}">
             <v-btn 
               id="show-btn" 
@@ -21,27 +26,27 @@
           <v-card>
             <v-card-title>Add Bookmark</v-card-title>
             <v-card-text>
-            <v-text-field
-              id="create-name"
-              type="text"
-              v-model="createdBookmark.name"
-              placeholder="Name"
-              label="Name:"
-            ></v-text-field>
-            <v-text-field
-              id="create-url"
-              type="text"
-              v-model="createdBookmark.url"
-              placeholder="URL"
-              label="URL:"
-            ></v-text-field>
-            <v-text-field
-              id="create-color"
-              type="text"
-              v-model="createdBookmark.color"
-              placeholder="#FFFFFF"
-              label="Color:"
-            ></v-text-field>
+              <v-text-field
+                id="create-name"
+                type="text"
+                v-model="createdBookmark.name"
+                placeholder="Name"
+                label="Name:"
+              ></v-text-field>
+              <v-text-field
+                id="create-url"
+                type="text"
+                v-model="createdBookmark.url"
+                placeholder="URL"
+                label="URL:"
+              ></v-text-field>
+              <v-text-field
+                id="create-color"
+                type="text"
+                v-model="createdBookmark.color"
+                placeholder="#FFFFFF"
+                label="Color:"
+              ></v-text-field>
             </v-card-text>
 
           <v-card-actions>
@@ -51,6 +56,13 @@
                 @click="onCreateSubmit"
               >
                 Submit
+              </v-btn>
+                <v-btn
+                color="primary"
+                text
+                @click="createModalShow = false"
+              >
+                Cancel
               </v-btn>
             </v-row>
           </v-card-actions>

@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="devmarks">
     <v-app-bar app color="primary" dark clipped-left v-if="name">
       <div class="d-flex align-center">
         <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>

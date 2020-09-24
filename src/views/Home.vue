@@ -1,19 +1,18 @@
 <template>
-  <div>
-    <v-row align="center">
-      <v-col cols="6" sm="4">
+    <v-row>
+      <v-col cols="12">
+        <v-row align="center" justify="center">
       <v-img
         src="../assets/logo.svg"
-        max-width="250"
+        max-width="150"
+        class="ma-5"
       />
-      </v-col>
-      <v-col cols="6" sm="4">
       <p class="text-h1 text--secondary">
         Devmarks
       </p>
+      </v-row>
       </v-col>
     </v-row>
-  </div>
 </template>
 
 <script lang="ts">
