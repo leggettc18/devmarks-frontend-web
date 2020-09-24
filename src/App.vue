@@ -14,6 +14,24 @@
 
         <v-toolbar-title>Devmarks</v-toolbar-title>
       </div>
+      <v-spacer></v-spacer>
+      <v-divider
+        class="mx-4"
+        vertical
+      ></v-divider>
+      <div v-if="name">
+        <v-avatar
+          color="white"
+          size="36"
+        >
+          <v-icon color="primary">mdi-account</v-icon>
+        </v-avatar>
+      </div>
+      <div v-if="!name">
+      <router-link class="nav-link white--text" to="login">
+        Login
+      </router-link>
+      </div>
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
