@@ -69,6 +69,7 @@
           <v-btn
             color="primary"
             block
+            @click="logout"
           >
             Logout
           </v-btn>
@@ -109,6 +110,11 @@ export default class App extends Vue {
     if (auth.isAuthenticated) {
       user.loadUser();
     }
+  }
+
+  async logout() {
+    await auth.logout()
+    this.$router.push("login");
   }
 }
 </script>
