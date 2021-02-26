@@ -1,52 +1,41 @@
 <template>
-    <v-row 
-      align="center"
-      justify="center"
-      class="text-center"
-    >
-      <v-col
-        cols="12"
-        sm="8"
-        md="4"
-      >
-        <v-row justify="center">
-          <v-img
-            src="../assets/logo.svg"
-            max-width="100"
-          />
-        </v-row>
-        <div class="text-h4 text-center">Sign in</div>
+  <v-row align="center" justify="center" class="text-center">
+    <v-col cols="12" sm="8" md="4">
+      <v-row justify="center">
+        <v-img src="../assets/logo.svg" max-width="100" />
+      </v-row>
+      <div class="text-h4 text-center">Sign in</div>
 
-        <ul class="error-messages" v-if="loginError">
-          <li>{{ loginError }}</li>
-        </ul>
+      <ul v-if="loginError" class="error-messages">
+        <li>{{ loginError }}</li>
+      </ul>
 
-        <v-form ref="form" @submit="onSubmit">
-            <v-text-field
-              id="input-email"
-              type="email"
-              required
-              v-model="email"
-              placeholder="Email"
-              label="Email address:"
-            ></v-text-field>
-            <v-text-field
-              required
-              id="input-password"
-              type="password"
-              v-model="password"
-              placeholder="Password"
-              label="Password:"
-            ></v-text-field>
-          <v-btn type="submit" color="primary">
-            Sign in
-          </v-btn>
-          <p class="text-right">
-            <router-link to="/register"> Need an account? </router-link>
-          </p>
-        </v-form>
-      </v-col>
-    </v-row>
+      <v-form ref="form" @submit="onSubmit">
+        <v-text-field
+          id="input-email"
+          v-model="email"
+          type="email"
+          required
+          placeholder="Email"
+          label="Email address:"
+        ></v-text-field>
+        <v-text-field
+          id="input-password"
+          v-model="password"
+          required
+          type="password"
+          placeholder="Password"
+          label="Password:"
+        ></v-text-field>
+        <v-btn type="submit" color="primary">
+          Sign in
+        </v-btn>
+        <p class="text-right">
+          <router-link to="/register"> Need an account? </router-link>
+        </p>
+      </v-form>
+    </v-col>
+  </v-row>
 </template>
 
 <script lang="ts">

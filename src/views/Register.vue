@@ -6,30 +6,30 @@
       </v-row>
       <div class="text-h4 text-center">Sign Up</div>
 
-      <ul class="error-messages" v-if="registerError">
+      <ul v-if="registerError" class="error-messages">
         <li>{{ registerError }}</li>
       </ul>
 
       <v-form ref="form" @submit="onSubmit">
         <v-text-field
           id="input-email"
+          v-model="email"
           type="email"
           required
-          v-model="email"
           placeholder="Email"
           label="Email address:"
         ></v-text-field>
         <v-text-field
-          required
           id="input-password"
-          type="password"
           v-model="password"
+          required
+          type="password"
           placeholder="Password"
           label="Password:"
         ></v-text-field>
-        <v-btn type="submit" color="primary"> Sign in </v-btn>
+        <v-btn type="submit" color="primary">Sign in</v-btn>
         <p class="text-right">
-          <router-link to="/login"> Already have an account? </router-link>
+          <router-link to="/login">Already have an account?</router-link>
         </p>
       </v-form>
     </v-col>
