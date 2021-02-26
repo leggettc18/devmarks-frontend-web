@@ -1,16 +1,35 @@
 <template>
-  <v-row align="center" justify="center" class="text-center">
-    <v-col cols="12" sm="8" md="4">
+  <v-row
+    align="center"
+    justify="center"
+    class="text-center"
+  >
+    <v-col
+      cols="12"
+      sm="8"
+      md="4"
+    >
       <v-row justify="center">
-        <v-img src="../assets/logo.svg" max-width="100" />
+        <v-img
+          src="../assets/logo.svg"
+          max-width="100"
+        />
       </v-row>
-      <div class="text-h4 text-center">Sign Up</div>
+      <div class="text-h4 text-center">
+        Sign Up
+      </div>
 
-      <ul v-if="registerError" class="error-messages">
+      <ul
+        v-if="registerError"
+        class="error-messages"
+      >
         <li>{{ registerError }}</li>
       </ul>
 
-      <v-form ref="form" @submit="onSubmit">
+      <v-form
+        ref="form"
+        @submit="onSubmit"
+      >
         <v-text-field
           id="input-email"
           v-model="email"
@@ -18,7 +37,7 @@
           required
           placeholder="Email"
           label="Email address:"
-        ></v-text-field>
+        />
         <v-text-field
           id="input-password"
           v-model="password"
@@ -26,10 +45,17 @@
           type="password"
           placeholder="Password"
           label="Password:"
-        ></v-text-field>
-        <v-btn type="submit" color="primary">Sign in</v-btn>
+        />
+        <v-btn
+          type="submit"
+          color="primary"
+        >
+          Sign in
+        </v-btn>
         <p class="text-right">
-          <router-link to="/login">Already have an account?</router-link>
+          <router-link to="/login">
+            Already have an account?
+          </router-link>
         </p>
       </v-form>
     </v-col>
