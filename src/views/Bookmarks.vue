@@ -1,13 +1,6 @@
 <template>
-  <v-row
-    align="center"
-    justify="center"
-  >
-    <v-col
-      cols="12"
-      sm="8"
-      md="4"
-    >
+  <v-row align="center" justify="center">
+    <v-col cols="12" sm="8" md="4">
       <v-row justify="center">
         <v-dialog
           id="bookmark-add-modal"
@@ -16,15 +9,7 @@
           width="750"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              id="show-btn"
-              color="primary"
-              dark
-              v-bind="attrs"
-              v-on="on"
-            >
-              Add Bookmark
-            </v-btn>
+            <v-btn id="show-btn" color="primary" dark v-bind="attrs" v-on="on">Add Bookmark</v-btn>
           </template>
           <v-card>
             <v-card-title>Add Bookmark</v-card-title>
@@ -53,45 +38,23 @@
             </v-card-text>
 
             <v-card-actions>
-              <v-row
-                justify="end"
-                class="mx-2"
-              >
-                <v-btn
-                  class="primary"
-                  @click="onCreateSubmit"
-                >
-                  Submit
-                </v-btn>
-                <v-btn
-                  color="primary"
-                  text
-                  @click="createModalShow = false"
-                >
-                  Cancel
-                </v-btn>
+              <v-row justify="end" class="mx-2">
+                <v-btn class="primary" @click="onCreateSubmit">Submit</v-btn>
+                <v-btn color="primary" text @click="createModalShow = false">Cancel</v-btn>
               </v-row>
             </v-card-actions>
           </v-card>
         </v-dialog>
       </v-row>
-      <div
-        v-for="bookmark in bookmarks"
-        :key="bookmark"
-      >
-        <v-card
-          class="my-2"
-          color="primary"
-          dark
-        >
+      <div v-for="bookmark in bookmarks" :key="bookmark">
+        <v-card class="my-2" color="primary" dark>
           <v-card-title>{{ bookmark.name }}</v-card-title>
           <v-card-text>
-            <a
-              class="white--text"
-              :href="`https://${bookmark.url}`"
-            >{{
+            <a class="white--text" :href="`https://${bookmark.url}`">
+              {{
               bookmark.url
-            }}</a>
+              }}
+            </a>
           </v-card-text>
         </v-card>
       </div>
@@ -110,7 +73,7 @@ export default class Login extends Vue {
   createdBookmark: BookmarkCreate = {
     name: "",
     url: "",
-    color: ""
+    color: "",
   };
   createModalShow = false;
 
@@ -130,7 +93,8 @@ export default class Login extends Vue {
   async onCreateSubmit(evt: Event) {
     evt.preventDefault();
     try {
-      const response = await Api.createBookmark(this.createdBookmark);
+      await Api.createBookmark(this.createdBookmark);
+      this.bookmarks = await Api.fetchBookmarks();
     } catch (err) {
       this.ignoreError();
     }

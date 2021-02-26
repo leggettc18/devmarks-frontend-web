@@ -26,7 +26,7 @@ export abstract class Api {
 
   static createAuthInterceptor() {
     this.api.interceptors.response.use(undefined, function(err) {
-      return new Promise(function(resolve, reject) {
+      return new Promise(() => {
         if (
           err.response.status === 403 &&
           err.config &&
@@ -59,8 +59,8 @@ export abstract class Api {
     return response.data as Bookmark[];
   }
 
-  static async createBookmark(bookmark: BookmarkCreate): Promise<number> {
+  static async createBookmark(bookmark: BookmarkCreate): Promise<Bookmark> {
     const response = await this.api.post("/bookmarks/", bookmark);
-    return response.data.id;
+    return response.data;
   }
 }

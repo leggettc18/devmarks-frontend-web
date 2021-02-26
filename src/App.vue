@@ -1,12 +1,6 @@
 <template>
   <v-app id="devmarks">
-    <v-app-bar
-      v-if="name"
-      app
-      color="primary"
-      dark
-      clipped-left
-    >
+    <v-app-bar v-if="name" app color="primary" dark clipped-left>
       <div class="d-flex align-center">
         <v-app-bar-nav-icon @click="drawer = !drawer" />
         <v-img
@@ -21,46 +15,20 @@
         <v-toolbar-title>Devmarks</v-toolbar-title>
       </div>
       <v-spacer />
-      <v-divider
-        class="mx-4"
-        vertical
-      />
+      <v-divider class="mx-4" vertical />
       <div v-if="name">
-        <v-avatar
-          color="white"
-          size="36"
-        >
-          <v-icon color="primary">
-            mdi-account
-          </v-icon>
+        <v-avatar color="white" size="36">
+          <v-icon color="primary">mdi-account</v-icon>
         </v-avatar>
       </div>
       <div v-if="!name">
-        <router-link
-          class="nav-link white--text"
-          to="login"
-        >
-          Login
-        </router-link>
+        <router-link class="nav-link white--text" to="login">Login</router-link>
       </div>
     </v-app-bar>
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-      clipped
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          v-model="group"
-          active-class="primary--text text--accent-4"
-        >
-          <router-link
-            class="nav-link"
-            to="home"
-          >
+    <v-navigation-drawer v-model="drawer" app clipped>
+      <v-list nav dense>
+        <v-list-item-group v-model="group" active-class="primary--text text--accent-4">
+          <router-link class="nav-link" to="home">
             <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-home</v-icon>
@@ -68,10 +36,7 @@
               <v-list-item-title>Home</v-list-item-title>
             </v-list-item>
           </router-link>
-          <router-link
-            class="nav-link"
-            to="bookmarks"
-          >
+          <router-link class="nav-link" to="bookmarks">
             <v-list-item>
               <v-list-item-icon>
                 <v-icon>mdi-bookmark</v-icon>
@@ -83,21 +48,12 @@
       </v-list>
       <template v-slot:append>
         <div class="pa-2">
-          <v-btn
-            color="primary"
-            block
-            @click="logout"
-          >
-            Logout
-          </v-btn>
+          <v-btn color="primary" block @click="logout">Logout</v-btn>
         </div>
       </template>
     </v-navigation-drawer>
     <v-main>
-      <v-container
-        class="fill-height"
-        fluid
-      >
+      <v-container class="fill-height" fluid>
         <router-view />
       </v-container>
     </v-main>
@@ -105,11 +61,9 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from "vue-property-decorator";
-import { Route } from "vue-router";
+import { Component, Vue } from "vue-property-decorator";
 import auth from "@/store/modules/auth";
 import user from "@/store/modules/user";
-import { User } from "./models/user";
 import { Api } from "@/api/api";
 
 @Component
@@ -130,6 +84,7 @@ export default class App extends Vue {
 
   async logout() {
     await auth.logout();
+    this.drawer = false;
     this.$router.push("login");
   }
 }
