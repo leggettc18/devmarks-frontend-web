@@ -61,10 +61,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import Vue from "vue";
 import auth from "@/store/modules/auth";
 import user from "@/store/modules/user";
 import { Api } from "@/api/api";
+import Component from "vue-class-component";
 
 @Component
 export default class App extends Vue {

@@ -63,9 +63,10 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import Vue from "vue";
 import { Api } from "@/api/api";
 import { Bookmark, BookmarkCreate } from "@/models/bookmark";
+import Component from "vue-class-component";
 
 @Component
 export default class Login extends Vue {
