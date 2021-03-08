@@ -8,8 +8,20 @@ class State {
   private user: User | null = null;
   private auth: AuthState | null = null;
 
+  constructor() {
+    const userJson = localStorage.getItem("user");
+    if (userJson) {
+      this.user = JSON.parse(userJson) as User;
+    }
+    const token = localStorage.getItem("user-token");
+    if (token) {
+      this.auth = { token };
+    }
+  }
+
   storeUser(user: User) {
     this.user = user;
+    localStorage.setItem("user", JSON.stringify(user));
   }
 
   storeToken(authState: AuthState) {
@@ -18,6 +30,7 @@ class State {
 
   clearUser() {
     this.user = null;
+    localStorage.removeItem("user");
   }
 
   isUserSet(): boolean {
