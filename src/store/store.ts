@@ -5,8 +5,8 @@ import { AuthState } from "@/models/auth";
 export const stateSymbol = Symbol("state");
 
 class State {
-  user: User | null = null;
-  auth: AuthState | null = null;
+  private user: User | null = null;
+  private auth: AuthState | null = null;
 
   storeUser(user: User) {
     this.user = user;
