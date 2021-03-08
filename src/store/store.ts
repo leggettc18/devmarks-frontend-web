@@ -15,6 +15,15 @@ class State {
   storeToken(authState: AuthState) {
     this.auth = authState;
   }
+
+  clearUser() {
+    this.user = null;
+  }
+
+  isUserSet(): boolean {
+    console.log(this.user !== null);
+    return this.user !== null;
+  }
 }
 
 export const createState = () => {

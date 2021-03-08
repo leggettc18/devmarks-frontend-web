@@ -36,7 +36,6 @@ export default defineComponent({
       const user = await Api.fetchUser(authState.token);
       state.storeUser(user);
       localStorage.setItem("user-token", authState.token);
-      console.log(state.user);
     };
     return {
       state,
@@ -51,17 +50,5 @@ export default defineComponent({
       },
     };
   },
-  // methods: {
-  //   async onSubmit() {
-  //     const authState = await Api.login(this.form);
-  //     Api.setToken(authState.token);
-  //     localStorage.setItem("user-token", authState.token);
-  //     const user = await Api.fetchUser(authState.token);
-  //     this.state;
-  //     this.state.storeUser(user);
-
-  //     console.log(this.state);
-  //   },
-  // },
 });
 </script>
