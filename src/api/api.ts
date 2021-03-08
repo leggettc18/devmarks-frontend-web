@@ -2,7 +2,6 @@ import axios from "axios";
 import { User } from "@/models/user";
 import { Bookmark, BookmarkCreate } from "@/models/bookmark";
 import { Credentials, AuthState } from "@/models/auth";
-import auth from "@/store/modules/auth";
 import Router from "@/router";
 
 export abstract class Api {
@@ -13,7 +12,7 @@ export abstract class Api {
       window.location.hostname +
       ":" +
       9092 +
-      "/api"
+      "/api",
   });
 
   static setToken(token: string) {
@@ -32,7 +31,7 @@ export abstract class Api {
           err.config &&
           !err.config.__isRetryRequest
         ) {
-          auth.logout();
+          //auth.logout();
           Router.push("/login");
         }
         throw err;
@@ -49,7 +48,8 @@ export abstract class Api {
     await this.api.post("/users/", creds);
   }
 
-  static async fetchUser(): Promise<User> {
+  static async fetchUser(token: string): Promise<User> {
+    this.api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await this.api.get("/user/");
     return response.data as User;
   }
