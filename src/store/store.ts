@@ -24,9 +24,13 @@ class State {
     localStorage.setItem("user", JSON.stringify(user));
   }
 
+  getToken() {
+    return this.auth?.token;
+  }
+
   storeToken(authState: AuthState) {
     this.auth = authState;
-    localStorage.setItem("user-token", JSON.stringify(authState.token));
+    localStorage.setItem("user-token", authState.token);
   }
 
   clearUser() {
@@ -35,7 +39,6 @@ class State {
   }
 
   isUserSet(): boolean {
-    console.log(this.user !== null);
     return this.user !== null;
   }
 }

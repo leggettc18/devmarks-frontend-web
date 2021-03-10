@@ -54,7 +54,8 @@ export abstract class Api {
     return response.data as User;
   }
 
-  static async fetchBookmarks(): Promise<Bookmark[]> {
+  static async fetchBookmarks(token: string): Promise<Bookmark[]> {
+    this.api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await this.api.get("/bookmarks/");
     return response.data as Bookmark[];
   }

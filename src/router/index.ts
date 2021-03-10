@@ -27,6 +27,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "Register",
     component: () => import("@/views/Register.vue"),
   },
+  {
+    path: "/bookmarks",
+    name: "Bookmarks",
+    component: () => import("@/views/Bookmarks.vue"),
+  },
 ];
 
 const router = createRouter({

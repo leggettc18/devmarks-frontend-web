@@ -59,7 +59,6 @@ export default defineComponent({
     const isCollapse = ref(false);
 
     const isLoggedIn = () => {
-      console.log(state.isUserSet());
       return state.isUserSet();
     };
 
