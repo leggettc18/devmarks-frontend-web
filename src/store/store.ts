@@ -26,6 +26,7 @@ class State {
 
   storeToken(authState: AuthState) {
     this.auth = authState;
+    localStorage.setItem("user-token", JSON.stringify(authState.token));
   }
 
   clearUser() {

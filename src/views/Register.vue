@@ -10,7 +10,7 @@
         </el-form-item>
         <el-form-item>
           <el-row type="flex" justify="center">
-            <el-button type="primary" @click.prevent="login(form)">Login</el-button>
+            <el-button type="primary" @click.prevent="register(form)">Login</el-button>
             <el-button>Cancel</el-button>
           </el-row>
         </el-form-item>
@@ -26,11 +26,12 @@ import { useState } from "../store/store";
 import { Credentials } from "@/models/auth";
 
 export default defineComponent({
-  name: "Login",
+  name: "Register",
   setup() {
     const state = useState();
 
-    const login = async (creds: Credentials) => {
+    const register = async (creds: Credentials) => {
+      await Api.register(creds);
       const authState = await Api.login(creds);
       state.storeToken(authState);
       const user = await Api.fetchUser(authState.token);
@@ -38,7 +39,7 @@ export default defineComponent({
     };
     return {
       state,
-      login,
+      register,
     };
   },
   data() {
