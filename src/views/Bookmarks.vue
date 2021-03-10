@@ -1,10 +1,12 @@
 <template>
-  <el-row type="flex">
-    <el-card v-for="(bookmark, i) in bookmarks" :key="i" type="box-card">
-      <div class="card-text">
-        <a :href="bookmark.url">{{bookmark.name}}</a>
-      </div>
-    </el-card>
+  <el-row type="flex" justify="center" :gutter="20">
+    <el-col v-for="(bookmark, i) in bookmarks" :key="i" :span="8">
+      <el-card type="box-card" class="mv-20">
+        <div class="card-text">
+          <a :href="bookmark.url">{{bookmark.name}}</a>
+        </div>
+      </el-card>
+    </el-col>
   </el-row>
 </template>
 
