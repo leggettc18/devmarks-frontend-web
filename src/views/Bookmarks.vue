@@ -1,7 +1,9 @@
 <template>
   <el-row type="flex">
     <el-card v-for="(bookmark, i) in bookmarks" :key="i" type="box-card">
-      <div class="card-text">{{bookmark.name}}</div>
+      <div class="card-text">
+        <a :href="bookmark.url">{{bookmark.name}}</a>
+      </div>
     </el-card>
   </el-row>
 </template>
