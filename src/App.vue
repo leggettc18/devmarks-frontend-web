@@ -1,19 +1,37 @@
 <template>
-  <div>
-    <div class="top-bar bg-primary">
-      <div class="align-center">
-        <i
-          v-if="isLoggedIn()"
-          class="collapse-icon"
-          :class="collapseIcon"
-          @click.prevent="isCollapse = !isCollapse"
-        />
+  <el-container>
+    <el-header class="top-bar bg-primary">
+      <div class="flex">
+        <div class="align-center">
+          <i
+            v-if="isLoggedIn()"
+            class="collapse-icon"
+            :class="collapseIcon"
+            @click.prevent="isCollapse = !isCollapse"
+          />
+        </div>
+        <img id="logo-nav" src="@/assets/logo-inverted.svg" />
+        <router-link class="nav-link" to="/">
+          <h1 class="brand">Devmarks</h1>
+        </router-link>
       </div>
-      <img id="logo-nav" src="@/assets/logo-inverted.svg" />
-      <router-link class="nav-link" to="/">
-        <h1 class="brand">Devmarks</h1>
-      </router-link>
-    </div>
+
+      <div class="flex align-center">
+        <div v-if="!isLoggedIn()">
+          <ul class="nav-links">
+            <li class="nav-link-item">
+              <router-link class="nav-link" to="/login">Login</router-link>
+            </li>
+            <li class="nav-link-item">
+              <router-link class="nav-link" to="/register">Register</router-link>
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <el-button type="text" class="nav-link" @click.prevent="state.clearUser()">Logout</el-button>
+        </div>
+      </div>
+    </el-header>
     <el-container>
       <el-aside v-if="isLoggedIn()">
         <el-menu router="true" class="el-menu-vertical" :collapse="isCollapse">
@@ -31,22 +49,13 @@
               </template>
             </el-menu-item>
           </el-menu-item-group>
-          <el-menu-item-group>
-            <el-menu-item index="login">
-              <i class="el-icon-user" />
-              <template #title>
-                <span>Login</span>
-              </template>
-            </el-menu-item>
-          </el-menu-item-group>
         </el-menu>
       </el-aside>
       <el-main>
-        <el-button @click.prevent="state.clearUser()">Logout</el-button>
         <router-view />
       </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script lang="ts">

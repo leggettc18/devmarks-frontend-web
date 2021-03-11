@@ -7,6 +7,11 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 .top-bar {
     display: flex;
     padding-left: 1rem;
+    justify-content: space-between;
+}
+
+.flex {
+    display: flex;
 }
 
 .align-center {
@@ -50,9 +55,19 @@ body {
 
 .nav-link {
   text-decoration: none;
-  :hover {
-      color: #7A5D72
+  color: white;
+  &:hover {
+      color: #7A5D72 !important;
   }
+}
+
+.nav-links {
+    display: flex;
+    list-style-type: none;
+}
+
+.nav-link-item {
+    padding: 15px;
 }
 
 .bg-primary {
