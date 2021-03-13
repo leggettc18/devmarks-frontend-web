@@ -37,6 +37,8 @@ import { Api } from "@/api/api";
 import { defineComponent, onMounted, Ref, ref } from "vue";
 import { useState } from "@/store/store";
 import { Bookmark, BookmarkCreate } from "@/models/bookmark";
+import { useQuery } from "@vue/apollo-composable";
+import gql from "graphql-tag";
 
 export default defineComponent({
   name: "Bookmarks",
@@ -47,10 +49,16 @@ export default defineComponent({
     if (!token) {
       return {};
     }
-    const bookmarks = ref() as Ref<Bookmark[]>;
-    onMounted(async () => {
-      bookmarks.value = await Api.fetchBookmarks(token);
-    });
+    const { result } = useQuery<Bookmark[]>(gql`
+      query bookmarks {
+        bookmarks {
+          name
+          url
+        }
+      }
+    `);
+    const bookmarks = result.value;
+    console.log(bookmarks);
 
     const newBookmark = ref({
       name: "",
@@ -61,14 +69,14 @@ export default defineComponent({
     const submitNewBookmark = async () => {
       const result = await Api.createBookmark(newBookmark.value);
       if (result) {
-        bookmarks.value.push(result);
+        bookmarks.push(result);
         dialogVisible.value = false;
       }
     };
 
     return {
       dialogVisible,
-      bookmarks,
+      ...bookmarks,
       newBookmark,
       submitNewBookmark,
     };

@@ -12,8 +12,18 @@ import {
 import ElementPlus from "element-plus";
 import "@/assets/styles.scss";
 
+const getHeaders = () => {
+  const headers = { authorization: "" };
+  const token = localStorage.getItem("user-token");
+  if (token) {
+    headers.authorization = `Bearer ${token}`;
+  }
+  return headers;
+};
+
 const httpLink = createHttpLink({
   uri: "http://localhost:9092/graphql",
+  headers: getHeaders(),
 });
 
 const cache = new InMemoryCache();
