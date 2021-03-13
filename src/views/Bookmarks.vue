@@ -20,7 +20,7 @@
         </span>
       </template>
     </el-dialog>
-    <el-row type="flex" justify="center" :gutter="20">
+    <el-row v-if="bookmarks" type="flex" justify="center" :gutter="20">
       <el-col v-for="(bookmark, i) in bookmarks" :key="i" :span="8">
         <el-card type="box-card" class="mv-20">
           <div class="card-text">
@@ -37,7 +37,7 @@ import { Api } from "@/api/api";
 import { defineComponent, onMounted, Ref, ref } from "vue";
 import { useState } from "@/store/store";
 import { Bookmark, BookmarkCreate } from "@/models/bookmark";
-import { useQuery } from "@vue/apollo-composable";
+import { useQuery, useResult } from "@vue/apollo-composable";
 import gql from "graphql-tag";
 
 export default defineComponent({
@@ -57,8 +57,7 @@ export default defineComponent({
         }
       }
     `);
-    const bookmarks = result.value;
-    console.log(bookmarks);
+    const bookmarks = useResult(result);
 
     const newBookmark = ref({
       name: "",
@@ -69,14 +68,14 @@ export default defineComponent({
     const submitNewBookmark = async () => {
       const result = await Api.createBookmark(newBookmark.value);
       if (result) {
-        bookmarks.push(result);
+        //bookmarks.value.push(result);
         dialogVisible.value = false;
       }
     };
 
     return {
       dialogVisible,
-      ...bookmarks,
+      bookmarks,
       newBookmark,
       submitNewBookmark,
     };
