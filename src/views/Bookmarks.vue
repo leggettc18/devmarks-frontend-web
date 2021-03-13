@@ -20,24 +20,29 @@
         </span>
       </template>
     </el-dialog>
-    <el-row v-if="bookmarks" type="flex" justify="center" :gutter="20">
-      <el-col v-for="(bookmark, i) in bookmarks" :key="i" :span="8">
-        <el-card type="box-card" class="mv-20">
-          <div class="card-text">
-            <a :href="bookmark.url">{{bookmark.name}}</a>
-          </div>
-        </el-card>
-      </el-col>
+    <el-row type="flex" justify="center" :gutter="20">
+      <template v-if="loading">Loading...</template>
+      <template v-else-if="error">Error: {{error.message}}</template>
+      <template v-else-if="bookmarks">
+        <el-col v-for="(bookmark, i) in bookmarks" :key="i" :span="8">
+          <el-card type="box-card" class="mv-20">
+            <div class="card-text">
+              <a :href="bookmark.url">{{bookmark.name}}</a>
+            </div>
+          </el-card>
+        </el-col>
+      </template>
     </el-row>
   </div>
 </template>
 
 <script lang="ts">
 import { Api } from "@/api/api";
-import { defineComponent, onMounted, Ref, ref } from "vue";
+import { defineComponent, Ref, ref } from "vue";
 import { useState } from "@/store/store";
 import { Bookmark, BookmarkCreate } from "@/models/bookmark";
 import { useQuery, useResult } from "@vue/apollo-composable";
+import { useGetBookmarksQuery } from "../generated/graphql";
 import gql from "graphql-tag";
 
 export default defineComponent({
@@ -49,14 +54,7 @@ export default defineComponent({
     if (!token) {
       return {};
     }
-    const { result } = useQuery<Bookmark[]>(gql`
-      query bookmarks {
-        bookmarks {
-          name
-          url
-        }
-      }
-    `);
+    const { result, loading, error } = useGetBookmarksQuery();
     const bookmarks = useResult(result);
 
     const newBookmark = ref({
@@ -76,6 +74,8 @@ export default defineComponent({
     return {
       dialogVisible,
       bookmarks,
+      loading,
+      error,
       newBookmark,
       submitNewBookmark,
     };
