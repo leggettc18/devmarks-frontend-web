@@ -40,10 +40,9 @@
 import { Api } from "@/api/api";
 import { defineComponent, Ref, ref } from "vue";
 import { useState } from "@/store/store";
-import { Bookmark, BookmarkCreate } from "@/models/bookmark";
-import { useQuery, useResult } from "@vue/apollo-composable";
+import { BookmarkCreate } from "@/models/bookmark";
+import { useResult } from "@vue/apollo-composable";
 import { useGetBookmarksQuery } from "../generated/graphql";
-import gql from "graphql-tag";
 
 export default defineComponent({
   name: "Bookmarks",

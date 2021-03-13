@@ -1,4 +1,4 @@
-import { createApp, reactive } from "vue";
+import { createApp } from "vue";
 import { stateSymbol, createState } from "./store/store";
 import { DefaultApolloClient } from "@vue/apollo-composable";
 import App from "./App.vue";
