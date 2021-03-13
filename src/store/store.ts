@@ -33,9 +33,11 @@ class State {
     localStorage.setItem("user-token", authState.token);
   }
 
-  clearUser() {
+  logOut() {
     this.user = null;
+    this.auth = null;
     localStorage.removeItem("user");
+    localStorage.removeItem("user-token");
   }
 
   isUserSet(): boolean {

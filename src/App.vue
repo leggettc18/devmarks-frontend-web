@@ -28,7 +28,7 @@
           </ul>
         </div>
         <div v-else>
-          <el-button type="text" class="nav-link" @click.prevent="state.clearUser()">Logout</el-button>
+          <el-button type="text" class="nav-link" @click.prevent="state.logOut()">Logout</el-button>
         </div>
       </div>
     </el-header>
