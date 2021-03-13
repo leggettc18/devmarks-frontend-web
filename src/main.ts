@@ -6,30 +6,31 @@ import "./registerServiceWorker";
 import router from "./router";
 import {
   ApolloClient,
+  ApolloLink,
   createHttpLink,
   InMemoryCache,
 } from "@apollo/client/core";
 import ElementPlus from "element-plus";
 import "@/assets/styles.scss";
 
-const getHeaders = () => {
-  const headers = { authorization: "" };
+const authMiddleware = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem("user-token");
-  if (token) {
-    headers.authorization = `Bearer ${token}`;
-  }
-  return headers;
-};
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null,
+    },
+  });
+  return forward(operation);
+});
 
 const httpLink = createHttpLink({
   uri: "http://localhost:9092/graphql",
-  headers: getHeaders(),
 });
 
 const cache = new InMemoryCache();
 
 const apolloClient = new ApolloClient({
-  link: httpLink,
+  link: authMiddleware.concat(httpLink),
   cache,
 });
 
