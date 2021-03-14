@@ -16,7 +16,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="submitNewBookmark()">Submit</el-button>
+          <el-button type="primary" @click="handleSubmit()">Submit</el-button>
         </span>
       </template>
     </el-dialog>
@@ -37,12 +37,16 @@
 </template>
 
 <script lang="ts">
-import { Api } from "@/api/api";
 import { defineComponent, Ref, ref } from "vue";
 import { useState } from "@/store/store";
-import { BookmarkCreate } from "@/models/bookmark";
+import { Bookmark, BookmarkCreate } from "@/models/bookmark";
 import { useResult } from "@vue/apollo-composable";
-import { useGetBookmarksQuery } from "../generated/graphql";
+import {
+  GetBookmarksDocument,
+  GetBookmarksQuery,
+  useGetBookmarksQuery,
+  useNewBookmarkMutation,
+} from "../generated/graphql";
 
 export default defineComponent({
   name: "Bookmarks",
@@ -62,12 +66,30 @@ export default defineComponent({
       color: "",
     } as BookmarkCreate);
 
-    const submitNewBookmark = async () => {
-      const result = await Api.createBookmark(newBookmark.value);
-      if (result) {
-        //bookmarks.value.push(result);
-        dialogVisible.value = false;
-      }
+    const { mutate: submitNewBookmark } = useNewBookmarkMutation(() => ({
+      variables: newBookmark.value,
+      update: (cache, { data: submitBookmark }) => {
+        const data = cache.readQuery<GetBookmarksQuery>({
+          query: GetBookmarksDocument,
+        });
+        const submittedBookmark = {
+          name: submitBookmark?.newBookmark.name,
+          url: submitBookmark?.newBookmark.url,
+          color: submitBookmark?.newBookmark.color,
+        } as Bookmark;
+        if (data?.bookmarks) {
+          cache.writeQuery<GetBookmarksQuery>({
+            query: GetBookmarksDocument,
+            data: { bookmarks: [...data.bookmarks, submittedBookmark] },
+          });
+          console.log(data);
+        }
+      },
+    }));
+
+    const handleSubmit = () => {
+      submitNewBookmark();
+      dialogVisible.value = false;
     };
 
     return {
@@ -76,7 +98,7 @@ export default defineComponent({
       loading,
       error,
       newBookmark,
-      submitNewBookmark,
+      handleSubmit,
     };
   },
 });
