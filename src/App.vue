@@ -64,6 +64,7 @@ import { useState } from "@/store/store";
 
 export default defineComponent({
   setup() {
+    document.title = "Devmarks";
     const state = useState();
     const isCollapse = ref(false);
 
