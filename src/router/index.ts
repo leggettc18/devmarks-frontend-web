@@ -1,57 +1,42 @@
-import Vue from "vue";
-import VueRouter, { RouteConfig, Route } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import Home from "../views/Home.vue";
 
-import auth from "@/store/modules/auth";
-
-const ifNotAuthenticated = (to: Route, from: Route, next: Function) => {
-  if (!auth.isAuthenticated) {
-    next();
-    return;
-  }
-  next("/");
-};
-
-const ifAuthenticated = (to: Route, from: Route, next: Function) => {
-  if (auth.isAuthenticated) {
-    next();
-    return;
-  }
-  next("/login");
-};
-
-Vue.use(VueRouter);
-
-const routes: Array<RouteConfig> = [
+const routes: Array<RouteRecordRaw> = [
   {
     path: "/",
     alias: "/home",
-    name: "home",
-    component: () => import("@/views/Home.vue")
+    name: "Home",
+    component: Home,
   },
   {
-    path: "/register",
-    name: "register",
-    component: () => import("@/views/Register.vue"),
-    beforeEnter: ifNotAuthenticated
+    path: "/about",
+    name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "@/views/About.vue"),
   },
   {
     path: "/login",
-    name: "login",
+    name: "Login",
     component: () => import("@/views/Login.vue"),
-    beforeEnter: ifNotAuthenticated
+  },
+  {
+    path: "/register",
+    name: "Register",
+    component: () => import("@/views/Register.vue"),
   },
   {
     path: "/bookmarks",
-    name: "bookmarks",
+    name: "Bookmarks",
     component: () => import("@/views/Bookmarks.vue"),
-    beforeEnter: ifAuthenticated
-  }
+  },
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: process.env.BASE_URL,
-  routes
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
+  routes,
 });
 
 export default router;

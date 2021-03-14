@@ -1,23 +1,42 @@
-import Vue from "vue";
+import { createApp } from "vue";
+import { stateSymbol, createState } from "./store/store";
+import { DefaultApolloClient } from "@vue/apollo-composable";
 import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import auth from "@/store/modules/auth";
 import "./registerServiceWorker";
-
+import router from "./router";
+import {
+  ApolloClient,
+  ApolloLink,
+  createHttpLink,
+  InMemoryCache,
+} from "@apollo/client/core";
+import ElementPlus from "element-plus";
 import "@/assets/styles.scss";
-import { Api } from "./api/api";
-import vuetify from "./plugins/vuetify";
 
-Vue.config.productionTip = false;
+const authMiddleware = new ApolloLink((operation, forward) => {
+  const token = localStorage.getItem("user-token");
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null,
+    },
+  });
+  return forward(operation);
+});
 
-if (auth.isAuthenticated) {
-  Api.setToken(auth.authState.token);
-}
+const httpLink = createHttpLink({
+  uri: "http://localhost:9092/graphql",
+});
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: h => h(App)
-}).$mount("#app");
+const cache = new InMemoryCache();
+
+const apolloClient = new ApolloClient({
+  link: authMiddleware.concat(httpLink),
+  cache,
+});
+
+createApp(App)
+  .provide(DefaultApolloClient, apolloClient)
+  .provide(stateSymbol, createState())
+  .use(router)
+  .use(ElementPlus)
+  .mount("#app");

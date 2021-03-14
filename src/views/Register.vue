@@ -1,91 +1,54 @@
 <template>
-  <v-row
-    align="center"
-    justify="center"
-    class="text-center"
-  >
-    <v-col
-      cols="12"
-      sm="8"
-      md="4"
-    >
-      <v-row justify="center">
-        <v-img
-          src="../assets/logo.svg"
-          max-width="100"
-        />
-      </v-row>
-      <div class="text-h4 text-center">
-        Sign Up
-      </div>
-
-      <ul
-        v-if="registerError"
-        class="error-messages"
-      >
-        <li>{{ registerError }}</li>
-      </ul>
-
-      <v-form
-        ref="form"
-        @submit="onSubmit"
-      >
-        <v-text-field
-          id="input-email"
-          v-model="email"
-          type="email"
-          required
-          placeholder="Email"
-          label="Email address:"
-        />
-        <v-text-field
-          id="input-password"
-          v-model="password"
-          required
-          type="password"
-          placeholder="Password"
-          label="Password:"
-        />
-        <v-btn
-          type="submit"
-          color="primary"
-        >
-          Sign in
-        </v-btn>
-        <p class="text-right">
-          <router-link to="/login">
-            Already have an account?
-          </router-link>
-        </p>
-      </v-form>
-    </v-col>
-  </v-row>
+  <el-row type="flex" justify="center">
+    <el-col :span="10">
+      <el-form ref="form" :model="form" label-width="120px" label-position="top">
+        <el-form-item label="Username">
+          <el-input v-model="form.email" type="email" placeholder="E-Mail"></el-input>
+        </el-form-item>
+        <el-form-item label="Password">
+          <el-input v-model="form.password" type="password" placeholder="Password"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-row type="flex" justify="center">
+            <el-button type="primary" @click.prevent="register(form)">Login</el-button>
+            <el-button>Cancel</el-button>
+          </el-row>
+        </el-form-item>
+      </el-form>
+    </el-col>
+  </el-row>
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
-import auth from "@/store/modules/auth";
+import { defineComponent } from "vue";
+import { Api } from "@/api/api";
+import { useState } from "../store/store";
+import { Credentials } from "@/models/auth";
 
-@Component
-export default class Register extends Vue {
-  email = "";
-  password = "";
-  registerError = "";
-  slide = 0;
-  sliding: boolean | null = null;
+export default defineComponent({
+  name: "Register",
+  setup() {
+    const state = useState();
 
-  onSubmit(evt: Event) {
-    evt.preventDefault();
-    auth
-      .register({
-        email: this.email,
-        password: this.password,
-      })
-      .then(() => this.$router.push("/login"))
-      .catch((err) => {
-        console.error(err);
-        this.registerError = "Invalid username or password";
-      });
-  }
-}
+    const register = async (creds: Credentials) => {
+      await Api.register(creds);
+      const authState = await Api.login(creds);
+      state.storeToken(authState);
+      const user = await Api.fetchUser(authState.token);
+      state.storeUser(user);
+    };
+    return {
+      state,
+      register,
+    };
+  },
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+});
 </script>

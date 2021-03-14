@@ -1,92 +1,90 @@
 <template>
-  <v-app id="devmarks">
-    <v-app-bar v-if="name" app color="primary" dark clipped-left>
-      <div class="d-flex align-center">
-        <v-app-bar-nav-icon @click="drawer = !drawer" />
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="./assets/logo-inverted.svg"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-toolbar-title>Devmarks</v-toolbar-title>
-      </div>
-      <v-spacer />
-      <v-divider class="mx-4" vertical />
-      <div v-if="name">
-        <v-avatar color="white" size="36">
-          <v-icon color="primary">mdi-account</v-icon>
-        </v-avatar>
-      </div>
-      <div v-if="!name">
-        <router-link class="nav-link white--text" to="login">Login</router-link>
-      </div>
-    </v-app-bar>
-    <v-navigation-drawer v-model="drawer" app clipped>
-      <v-list nav dense>
-        <v-list-item-group v-model="group" active-class="primary--text text--accent-4">
-          <router-link class="nav-link" to="home">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-home</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Home</v-list-item-title>
-            </v-list-item>
-          </router-link>
-          <router-link class="nav-link" to="bookmarks">
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-list-item-icon>
-              <v-list-item-title>Bookmarks</v-list-item-title>
-            </v-list-item>
-          </router-link>
-        </v-list-item-group>
-      </v-list>
-      <template v-slot:append>
-        <div class="pa-2">
-          <v-btn color="primary" block @click="logout">Logout</v-btn>
+  <el-container>
+    <el-header class="top-bar bg-primary">
+      <div class="flex">
+        <div class="align-center">
+          <i
+            v-if="isLoggedIn()"
+            class="collapse-icon"
+            :class="collapseIcon"
+            @click.prevent="isCollapse = !isCollapse"
+          />
         </div>
-      </template>
-    </v-navigation-drawer>
-    <v-main>
-      <v-container class="fill-height" fluid>
+        <img id="logo-nav" src="@/assets/logo-inverted.svg" />
+        <router-link class="nav-link" to="/">
+          <h1 class="brand">Devmarks</h1>
+        </router-link>
+      </div>
+
+      <div class="flex align-center">
+        <div v-if="!isLoggedIn()">
+          <ul class="nav-links">
+            <li class="nav-link-item">
+              <router-link class="nav-link" to="/login">Login</router-link>
+            </li>
+            <li class="nav-link-item">
+              <router-link class="nav-link" to="/register">Register</router-link>
+            </li>
+          </ul>
+        </div>
+        <div v-else>
+          <el-button type="text" class="nav-link" @click.prevent="state.logOut()">Logout</el-button>
+        </div>
+      </div>
+    </el-header>
+    <el-container>
+      <el-aside v-if="isLoggedIn()">
+        <el-menu router="true" class="el-menu-vertical" :collapse="isCollapse">
+          <el-menu-item-group>
+            <el-menu-item index="home">
+              <i class="el-icon-house" />
+              <template #title>
+                <span>Home</span>
+              </template>
+            </el-menu-item>
+            <el-menu-item index="bookmarks">
+              <i class="el-icon-collection-tag" />
+              <template #title>
+                <span>Bookmarks</span>
+              </template>
+            </el-menu-item>
+          </el-menu-item-group>
+        </el-menu>
+      </el-aside>
+      <el-main>
         <router-view />
-      </v-container>
-    </v-main>
-  </v-app>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import auth from "@/store/modules/auth";
-import user from "@/store/modules/user";
-import { Api } from "@/api/api";
-import Component from "vue-class-component";
+import { defineComponent, ref } from "vue";
+import { useState } from "@/store/store";
 
-@Component
-export default class App extends Vue {
-  drawer = false;
-  group = null;
+export default defineComponent({
+  setup() {
+    const state = useState();
+    const isCollapse = ref(false);
 
-  get name() {
-    return user.name;
-  }
+    const isLoggedIn = () => {
+      return state.isUserSet();
+    };
 
-  created() {
-    Api.createAuthInterceptor();
-    if (auth.isAuthenticated) {
-      user.loadUser();
-    }
-  }
-
-  async logout() {
-    await auth.logout();
-    this.drawer = false;
-    this.$router.push("login");
-  }
-}
+    return {
+      state,
+      isCollapse,
+      isLoggedIn,
+    };
+  },
+  computed: {
+    collapseIcon(): string {
+      return this.isCollapse ? "el-icon-s-unfold" : "el-icon-s-fold";
+    },
+  },
+});
 </script>
+
+<style lang="scss">
+</style>
+

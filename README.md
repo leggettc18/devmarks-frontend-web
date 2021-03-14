@@ -1,4 +1,4 @@
-# devmarks-frontend
+# devmarks-web-vue3
 
 ## Project setup
 ```
