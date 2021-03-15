@@ -105,6 +105,24 @@ export type NewBookmarkMutation = (
   ) }
 );
 
+export type RegisterMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type RegisterMutation = (
+  { __typename?: 'Mutation' }
+  & { register?: Maybe<(
+    { __typename?: 'AuthPayload' }
+    & Pick<AuthPayload, 'token'>
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email'>
+    )> }
+  )> }
+);
+
 export type GetBookmarksQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -184,6 +202,40 @@ export function useNewBookmarkMutation(options: VueApolloComposable.UseMutationO
   return VueApolloComposable.useMutation<NewBookmarkMutation, NewBookmarkMutationVariables>(NewBookmarkDocument, options);
 }
 export type NewBookmarkMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<NewBookmarkMutation, NewBookmarkMutationVariables>;
+export const RegisterDocument = gql`
+    mutation register($email: String!, $password: String!) {
+  register(email: $email, password: $password) {
+    token
+    user {
+      id
+      email
+    }
+  }
+}
+    `;
+
+/**
+ * __useRegisterMutation__
+ *
+ * To run a mutation, you first call `useRegisterMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useRegisterMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useRegisterMutation({
+ *   variables: {
+ *     email: // value for 'email'
+ *     password: // value for 'password'
+ *   },
+ * });
+ */
+export function useRegisterMutation(options: VueApolloComposable.UseMutationOptions<RegisterMutation, RegisterMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<RegisterMutation, RegisterMutationVariables>>) {
+  return VueApolloComposable.useMutation<RegisterMutation, RegisterMutationVariables>(RegisterDocument, options);
+}
+export type RegisterMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<RegisterMutation, RegisterMutationVariables>;
 export const GetBookmarksDocument = gql`
     query getBookmarks {
   bookmarks {

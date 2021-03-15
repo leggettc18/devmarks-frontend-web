@@ -2,7 +2,7 @@
   <el-row type="flex" justify="center">
     <el-col :span="10">
       <el-form ref="form" label-width="120px" label-position="top">
-        <el-form-item label="Username">
+        <el-form-item label="E-Mail">
           <el-input v-model="form.email" type="email" placeholder="E-Mail"></el-input>
         </el-form-item>
         <el-form-item label="Password">
