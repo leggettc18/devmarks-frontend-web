@@ -16,6 +16,12 @@ export type Scalars = {
   Time: any;
 };
 
+export type AuthPayload = {
+  __typename?: 'AuthPayload';
+  token?: Maybe<Scalars['String']>;
+  user?: Maybe<User>;
+};
+
 export type Bookmark = {
   __typename?: 'Bookmark';
   id: Scalars['ID'];
@@ -29,6 +35,8 @@ export type Bookmark = {
 export type Mutation = {
   __typename?: 'Mutation';
   newBookmark: Bookmark;
+  login?: Maybe<AuthPayload>;
+  register?: Maybe<AuthPayload>;
 };
 
 
@@ -36,6 +44,18 @@ export type MutationNewBookmarkArgs = {
   name: Scalars['String'];
   url: Scalars['String'];
   color?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationLoginArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
+};
+
+
+export type MutationRegisterArgs = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Query = {
@@ -51,6 +71,24 @@ export type User = {
   updatedAt: Scalars['Time'];
   email: Scalars['String'];
 };
+
+export type LoginMutationVariables = Exact<{
+  email: Scalars['String'];
+  password: Scalars['String'];
+}>;
+
+
+export type LoginMutation = (
+  { __typename?: 'Mutation' }
+  & { login?: Maybe<(
+    { __typename?: 'AuthPayload' }
+    & Pick<AuthPayload, 'token'>
+    & { user?: Maybe<(
+      { __typename?: 'User' }
+      & Pick<User, 'id' | 'email'>
+    )> }
+  )> }
+);
 
 export type NewBookmarkMutationVariables = Exact<{
   name: Scalars['String'];
@@ -79,6 +117,40 @@ export type GetBookmarksQuery = (
 );
 
 
+export const LoginDocument = gql`
+    mutation login($email: String!, $password: String!) {
+  login(email: $email, password: $password) {
+    token
+    user {
+      id
+      email
+    }
+  }
+}
+    `;
+
+/**
+ * __useLoginMutation__
+ *
+ * To run a mutation, you first call `useLoginMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useLoginMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useLoginMutation({
+ *   variables: {
+ *     email: // value for 'email'
+ *     password: // value for 'password'
+ *   },
+ * });
+ */
+export function useLoginMutation(options: VueApolloComposable.UseMutationOptions<LoginMutation, LoginMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<LoginMutation, LoginMutationVariables>>) {
+  return VueApolloComposable.useMutation<LoginMutation, LoginMutationVariables>(LoginDocument, options);
+}
+export type LoginMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<LoginMutation, LoginMutationVariables>;
 export const NewBookmarkDocument = gql`
     mutation newBookmark($name: String!, $url: String!, $color: String) {
   newBookmark(name: $name, url: $url, color: $color) {
