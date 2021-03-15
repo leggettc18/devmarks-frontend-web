@@ -4,9 +4,19 @@
       <el-form ref="form" label-width="120px" label-position="top">
         <el-form-item label="E-Mail">
           <el-input v-model="form.email" type="email" placeholder="E-Mail"></el-input>
+          <template v-if="loginErrors.email">
+            <div v-for="(error, i) in loginErrors.email" :key="i">
+              <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
+            </div>
+          </template>
         </el-form-item>
         <el-form-item label="Password">
           <el-input v-model="form.password" type="password" placeholder="Password"></el-input>
+          <template v-if="loginErrors.password">
+            <div v-for="(error, i) in loginErrors.password" :key="i">
+              <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
+            </div>
+          </template>
         </el-form-item>
         <el-form-item>
           <el-row type="flex" justify="center">
@@ -15,6 +25,9 @@
           </el-row>
         </el-form-item>
       </el-form>
+      <div v-if="loginErrors && !loading">
+        <div v-for="(e, i) of loginErrors.email" :key="i">{{e.extensions.message}}</div>
+      </div>
     </el-col>
   </el-row>
 </template>
@@ -25,6 +38,7 @@ import { useState } from "../store/store";
 import { Credentials } from "@/models/auth";
 import { useLoginMutation } from "@/generated/graphql";
 import router from "@/router";
+import { GraphQLError } from "graphql";
 
 export default defineComponent({
   name: "Login",
@@ -36,8 +50,22 @@ export default defineComponent({
       password: "",
     } as Credentials);
 
-    const { mutate: login, onDone } = useLoginMutation(() => ({
+    const loginErrors = ref({
+      email: null,
+      password: null,
+    } as {
+      email: null | GraphQLError[];
+      password: null | GraphQLError[];
+    });
+
+    const {
+      mutate: login,
+      onDone,
+      error: loginError,
+      loading,
+    } = useLoginMutation(() => ({
       variables: credentials.value,
+      errorPolicy: "all",
     }));
 
     onDone((login) => {
@@ -46,11 +74,22 @@ export default defineComponent({
         state.storeUser(login.data?.login?.user);
         router.push("/home");
       }
+      if (login.errors) {
+        loginErrors.value.email = login.errors.filter((e) => {
+          return e.extensions?.field === "email";
+        });
+        loginErrors.value.password = login.errors.filter((e) => {
+          return e.extensions?.field === "password";
+        });
+      }
     });
 
     return {
       state,
       login,
+      loginError,
+      loginErrors,
+      loading,
       credentials,
     };
   },

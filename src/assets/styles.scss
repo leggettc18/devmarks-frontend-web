@@ -4,6 +4,10 @@ $--font-path: '~element-plus/lib/theme-chalk/fonts';
 
 @import "~element-plus/packages/theme-chalk/src/index";
 
+.error {
+    color: red;
+}
+
 .top-bar {
     display: flex;
     padding-left: 1rem;
