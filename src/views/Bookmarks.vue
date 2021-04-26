@@ -28,6 +28,7 @@
           <el-card type="box-card" class="mv-20">
             <div class="card-text">
               <a :href="bookmark.url">{{bookmark.name}}</a>
+              <el-button type="danger" @click="handleDelete(bookmark.id)">Delete</el-button>
             </div>
           </el-card>
         </el-col>
@@ -46,6 +47,7 @@ import {
   GetBookmarksQuery,
   useGetBookmarksQuery,
   useNewBookmarkMutation,
+  useDeleteBookmarkMutation,
 } from "../generated/graphql";
 
 export default defineComponent({
@@ -92,6 +94,31 @@ export default defineComponent({
       dialogVisible.value = false;
     };
 
+    const deleteId = ref<number | null>(null);
+
+    const { mutate: deleteBookmark } = useDeleteBookmarkMutation(() => ({
+      variables: { id: `${deleteId.value}` },
+      update: (cache, { data: deletedBookmark }) => {
+        const data = cache.readQuery<GetBookmarksQuery>({
+          query: GetBookmarksDocument,
+        });
+        const newData = data?.bookmarks?.filter((bookmark) => {
+          bookmark.id != `${deleteId.value}`;
+        });
+        if (data?.bookmarks) {
+          cache.writeQuery<GetBookmarksQuery>({
+            query: GetBookmarksDocument,
+            data: { bookmarks: newData },
+          });
+        }
+      },
+    }));
+
+    const handleDelete = (id: number) => {
+      deleteId.value = id;
+      deleteBookmark();
+    };
+
     return {
       dialogVisible,
       bookmarks,
@@ -99,6 +126,7 @@ export default defineComponent({
       error,
       newBookmark,
       handleSubmit,
+      handleDelete,
     };
   },
 });

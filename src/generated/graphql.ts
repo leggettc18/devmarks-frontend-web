@@ -35,6 +35,7 @@ export type Bookmark = {
 export type Mutation = {
   __typename?: 'Mutation';
   newBookmark: Bookmark;
+  deleteBookmark: Scalars['Boolean'];
   login?: Maybe<AuthPayload>;
   register?: Maybe<AuthPayload>;
 };
@@ -44,6 +45,11 @@ export type MutationNewBookmarkArgs = {
   name: Scalars['String'];
   url: Scalars['String'];
   color?: Maybe<Scalars['String']>;
+};
+
+
+export type MutationDeleteBookmarkArgs = {
+  id: Scalars['ID'];
 };
 
 
@@ -71,6 +77,16 @@ export type User = {
   updatedAt: Scalars['Time'];
   email: Scalars['String'];
 };
+
+export type DeleteBookmarkMutationVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type DeleteBookmarkMutation = (
+  { __typename?: 'Mutation' }
+  & Pick<Mutation, 'deleteBookmark'>
+);
 
 export type LoginMutationVariables = Exact<{
   email: Scalars['String'];
@@ -101,7 +117,7 @@ export type NewBookmarkMutation = (
   { __typename?: 'Mutation' }
   & { newBookmark: (
     { __typename?: 'Bookmark' }
-    & Pick<Bookmark, 'name' | 'url' | 'color'>
+    & Pick<Bookmark, 'id' | 'name' | 'url' | 'color'>
   ) }
 );
 
@@ -130,11 +146,38 @@ export type GetBookmarksQuery = (
   { __typename?: 'Query' }
   & { bookmarks?: Maybe<Array<(
     { __typename?: 'Bookmark' }
-    & Pick<Bookmark, 'name' | 'url' | 'color'>
+    & Pick<Bookmark, 'id' | 'name' | 'url' | 'color'>
   )>> }
 );
 
 
+export const DeleteBookmarkDocument = gql`
+    mutation deleteBookmark($id: ID!) {
+  deleteBookmark(id: $id)
+}
+    `;
+
+/**
+ * __useDeleteBookmarkMutation__
+ *
+ * To run a mutation, you first call `useDeleteBookmarkMutation` within a Vue component and pass it any options that fit your needs.
+ * When your component renders, `useDeleteBookmarkMutation` returns an object that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - Several other properties: https://v4.apollo.vuejs.org/api/use-mutation.html#return
+ *
+ * @param options that will be passed into the mutation, supported options are listed on: https://v4.apollo.vuejs.org/guide-composable/mutation.html#options;
+ *
+ * @example
+ * const { mutate, loading, error, onDone } = useDeleteBookmarkMutation({
+ *   variables: {
+ *     id: // value for 'id'
+ *   },
+ * });
+ */
+export function useDeleteBookmarkMutation(options: VueApolloComposable.UseMutationOptions<DeleteBookmarkMutation, DeleteBookmarkMutationVariables> | ReactiveFunction<VueApolloComposable.UseMutationOptions<DeleteBookmarkMutation, DeleteBookmarkMutationVariables>>) {
+  return VueApolloComposable.useMutation<DeleteBookmarkMutation, DeleteBookmarkMutationVariables>(DeleteBookmarkDocument, options);
+}
+export type DeleteBookmarkMutationCompositionFunctionResult = VueApolloComposable.UseMutationReturn<DeleteBookmarkMutation, DeleteBookmarkMutationVariables>;
 export const LoginDocument = gql`
     mutation login($email: String!, $password: String!) {
   login(email: $email, password: $password) {
@@ -172,6 +215,7 @@ export type LoginMutationCompositionFunctionResult = VueApolloComposable.UseMuta
 export const NewBookmarkDocument = gql`
     mutation newBookmark($name: String!, $url: String!, $color: String) {
   newBookmark(name: $name, url: $url, color: $color) {
+    id
     name
     url
     color
@@ -239,6 +283,7 @@ export type RegisterMutationCompositionFunctionResult = VueApolloComposable.UseM
 export const GetBookmarksDocument = gql`
     query getBookmarks {
   bookmarks {
+    id
     name
     url
     color
