@@ -1,6 +1,6 @@
 <template>
-  <el-container>
-    <el-header class="top-bar bg-primary">
+  <div>
+    <!--     <el-header class="top-bar bg-primary">
       <div class="flex">
         <div class="align-center">
           <i
@@ -31,7 +31,8 @@
           <el-button type="text" class="nav-link" @click.prevent="state.logOut()">Logout</el-button>
         </div>
       </div>
-    </el-header>
+    </el-header>-->
+    <navbar />
     <el-container>
       <el-aside v-if="isLoggedIn()">
         <el-menu router="true" class="el-menu-vertical" :collapse="isCollapse">
@@ -55,14 +56,18 @@
         <router-view />
       </el-main>
     </el-container>
-  </el-container>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useState } from "@/store/store";
+import Navbar from "@/components/Navbar.vue";
 
 export default defineComponent({
+  components: {
+    Navbar,
+  },
   setup() {
     document.title = "Devmarks";
     const state = useState();
