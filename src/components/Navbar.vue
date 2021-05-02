@@ -10,11 +10,7 @@
             </router-link>
           </div>
         </div>
-        <div class="flex space-x-2 align-center">
-          <div class="pr-2">
-            <router-link to="/login">Login</router-link>
-          </div>
-        </div>
+        <slot name="nav-right"></slot>
       </div>
     </nav>
   </header>

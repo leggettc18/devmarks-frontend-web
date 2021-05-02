@@ -32,7 +32,27 @@
         </div>
       </div>
     </el-header>-->
-    <navbar />
+    <navbar>
+      <template v-slot:nav-right>
+        <template v-if="!isLoggedIn">
+          <div class="flex space-x-2 align-center">
+            <div>
+              <router-link to="/register">Register</router-link>
+            </div>
+            <div class="pr-2">
+              <router-link to="/login">Login</router-link>
+            </div>
+          </div>
+        </template>
+        <template v-else>
+          <div class="flex space-x-2 align-center">
+            <div class="pr-2">
+              <router-link to="/logout">Logout</router-link>
+            </div>
+          </div>
+        </template>
+      </template>
+    </navbar>
     <el-container>
       <el-aside v-if="isLoggedIn()">
         <el-menu router="true" class="el-menu-vertical" :collapse="isCollapse">
