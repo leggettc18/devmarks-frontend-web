@@ -33,6 +33,14 @@
       </div>
     </el-header>-->
     <navbar>
+      <template #nav-left>
+        <div class="flex space-x-2 pl-2 items-center">
+          <img src="@/assets/logo-inverted.svg" width="35" />
+          <router-link to="/" class="hover:text-primary-100">
+            <div>Devmarks</div>
+          </router-link>
+        </div>
+      </template>
       <template #nav-right>
         <template v-if="!isLoggedIn">
           <div class="flex space-x-2 align-center">
