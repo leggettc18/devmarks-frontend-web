@@ -58,7 +58,7 @@
         v-if="isLoggedIn()"
         class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-primary"
       >
-        <div router="true" class="sidebar-content px-4 py-6">
+        <div router="true" class="sidebar-content px-4 py-4">
           <ul class="flext flex-col w-full">
             <li class="my-px">
               <router-link
@@ -111,9 +111,9 @@
           </ul>
         </div>
       </aside>
-      <el-main>
+      <div class="flex justify-center w-full">
         <router-view />
-      </el-main>
+      </div>
     </div>
   </div>
 </template>
