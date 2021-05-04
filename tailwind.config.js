@@ -13,6 +13,8 @@ module.exports = {
           warning: colors.yellow,
           white: colors.white,
           black: colors.black,
+          gray: colors.gray,
+          purple: colors.purple,
         },
     extend: {},
   },

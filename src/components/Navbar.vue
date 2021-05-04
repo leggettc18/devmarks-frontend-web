@@ -1,12 +1,12 @@
 <template>
   <header class="w-full bg-primary">
-    <nav class="w-full bg-primary text-white">
-      <div class="flex justify-between">
+    <nav class="w-full bg-primary text-white items-center">
+      <div class="flex justify-between items-center">
         <div>
-          <div class="flex space-x-2 pl-2">
+          <div class="flex space-x-2 pl-2 items-center">
             <img src="@/assets/logo-inverted.svg" width="50" />
-            <router-link class="nav-link" to="/">
-              <h1 class="brand">Devmarks</h1>
+            <router-link to="/" class="hover:text-gray-400">
+              <div>Devmarks</div>
             </router-link>
           </div>
         </div>
