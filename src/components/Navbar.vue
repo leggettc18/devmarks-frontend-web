@@ -5,7 +5,7 @@
         <div>
           <div class="flex space-x-2 pl-2 items-center">
             <img src="@/assets/logo-inverted.svg" width="50" />
-            <router-link to="/" class="hover:text-gray-400">
+            <router-link to="/" class="hover:text-primary-100">
               <div>Devmarks</div>
             </router-link>
           </div>

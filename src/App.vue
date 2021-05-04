@@ -37,17 +37,17 @@
         <template v-if="!isLoggedIn">
           <div class="flex space-x-2 align-center">
             <div>
-              <router-link to="/register">Register</router-link>
+              <router-link to="/register" class="hover:text-primary-100">Register</router-link>
             </div>
             <div class="pr-2">
-              <router-link to="/login">Login</router-link>
+              <router-link to="/login" class="hover:text-primary-100">Login</router-link>
             </div>
           </div>
         </template>
         <template v-else>
           <div class="flex space-x-2 align-center">
             <div class="pr-2">
-              <router-link to="/logout" class="hover:text-gray-400">Logout</router-link>
+              <router-link to="/logout" class="hover:text-primary-100">Logout</router-link>
             </div>
           </div>
         </template>
@@ -63,11 +63,9 @@
             <li class="my-px">
               <router-link
                 to="/home"
-                class="flex flex-row items-center h-10 px-3 rounded-lg text-purple-200 hover:bg-gray-100 hover:text-primary"
+                class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-primary-100 hover:text-primary"
               >
-                <span
-                  class="flex items-center justify-center text-lg text-purple-200 hover:text-primary"
-                >
+                <span class="flex items-center justify-center text-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"
@@ -89,11 +87,9 @@
             <li class="my-px">
               <router-link
                 to="/bookmarks"
-                class="flex flex-row items-center h-10 px-3 rounded-lg text-purple-200 hover:bg-gray-100 hover:text-primary"
+                class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-primary-100 hover:text-primary"
               >
-                <span
-                  class="flex items-center justify-center text-lg text-purple-200 hover:text-primary"
-                >
+                <span class="flex items-center justify-center text-lg">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-6 w-6"

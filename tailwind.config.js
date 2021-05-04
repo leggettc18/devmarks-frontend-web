@@ -6,7 +6,10 @@ module.exports = {
   darkMode: false,
   theme: {
       colors: {
-          primary: '#59344F',
+          primary: {
+            DEFAULT: '#59344F',
+            100: '#ecdfe9'
+          },
           secondary: colors.emerald,
           info: colors.blue,
           danger: colors.red,
