@@ -25,21 +25,9 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    bgColor: {
-      type: String,
-      default: "blue-500",
-    },
-    textColor: {
-      type: String,
-      default: "white",
-    },
     hoverColor: {
       type: String,
       default: "blue-900",
-    },
-    hoverTextColor: {
-      type: String,
-      default: "blue-100",
     },
     routerLink: {
       type: Boolean,
@@ -51,18 +39,22 @@ export default defineComponent({
     },
   },
   setup(props) {
+    let classes: Record<string, boolean>;
     if (props.dark) {
-      const classes = {
+      classes = {
         rounded: props.rounded,
+        [`bg-${props.type}-700`]: true,
+        "text-white": true,
+        [`hover:bg-${props.type}-900`]: true,
+      };
+    } else {
+      classes = {
+        rounded: props.rounded,
+        [`bg-${props.type}-100`]: true,
+        [`text-${props.type}-700`]: true,
+        [`hover:bg-${props.type}-300`]: true,
       };
     }
-    const classes = {
-      rounded: props.rounded,
-      [`bg-${props.bgColor}`]: true,
-      [`text-${props.textColor}`]: true,
-      [`hover:bg-${props.hoverColor}`]: true,
-      [`hover:text-${props.hoverTextColor}`]: true,
-    };
     return { classes };
   },
 });

@@ -45,30 +45,17 @@
         <template v-if="!isLoggedIn">
           <div class="flex space-x-2 align-center">
             <div>
-              <router-link to="/register" class="hover:text-primary-100">Register</router-link>
+              <dm-button router-link to="/register" rounded type="primary">Register</dm-button>
             </div>
             <div class="pr-2">
-              <dm-button
-                router-link
-                to="/login"
-                bg-color="primary-100"
-                text-color="primary"
-                class="hover:text-primary-100"
-              >Login</dm-button>
+              <dm-button router-link to="/login" rounded type="primary">Login</dm-button>
             </div>
           </div>
         </template>
         <template v-else>
           <div class="flex space-x-2 align-center">
             <div class="pr-2">
-              <dm-button
-                bg-color="primary-100"
-                text-color="primary"
-                hover-color="primary-300"
-                hover-text-color="primary"
-                rounded
-                class="hover:text-primary-100"
-              >Logout</dm-button>
+              <dm-button type="primary" rounded>Logout</dm-button>
             </div>
           </div>
         </template>
