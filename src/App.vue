@@ -42,7 +42,7 @@
         </div>
       </template>
       <template #nav-right>
-        <template v-if="!isLoggedIn">
+        <template v-if="!isLoggedIn()">
           <div class="flex space-x-2 align-center">
             <div>
               <dm-button router-link to="/register" rounded type="primary">Register</dm-button>
@@ -55,7 +55,7 @@
         <template v-else>
           <div class="flex space-x-2 align-center">
             <div class="pr-2">
-              <dm-button type="primary" rounded>Logout</dm-button>
+              <dm-button type="primary" rounded @click="logout">Logout</dm-button>
             </div>
           </div>
         </template>
@@ -145,10 +145,15 @@ export default defineComponent({
       return state.isUserSet();
     };
 
+    const logout = () => {
+      state.logOut();
+    };
+
     return {
       state,
       isCollapse,
       isLoggedIn,
+      logout,
     };
   },
   computed: {
