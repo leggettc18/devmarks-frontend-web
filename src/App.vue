@@ -32,7 +32,7 @@
         </div>
       </div>
     </el-header>-->
-    <navbar>
+    <navbar bg-color="primary" text-color="white">
       <template #nav-left>
         <div class="flex space-x-2 pl-2 items-center">
           <img src="@/assets/logo-inverted.svg" width="35" />

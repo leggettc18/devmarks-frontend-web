@@ -5,8 +5,9 @@ module.exports = {
   purge: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
   darkMode: false,
   theme: {
+    extend: {
       colors: {
-          primary: {
+        primary: {
             DEFAULT: '#59344F',
             100: '#ecdfe9'
           },
@@ -14,12 +15,8 @@ module.exports = {
           info: colors.blue,
           danger: colors.red,
           warning: colors.yellow,
-          white: colors.white,
-          black: colors.black,
-          gray: colors.gray,
-          purple: colors.purple,
-        },
-    extend: {},
+        }
+      }
   },
   variants: {
     extend: {},
