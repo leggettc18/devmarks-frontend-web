@@ -48,24 +48,34 @@
               <router-link to="/register" class="hover:text-primary-100">Register</router-link>
             </div>
             <div class="pr-2">
-              <router-link to="/login" class="hover:text-primary-100">Login</router-link>
+              <dm-button
+                router-link
+                to="/login"
+                bg-color="primary-100"
+                text-color="primary"
+                class="hover:text-primary-100"
+              >Login</dm-button>
             </div>
           </div>
         </template>
         <template v-else>
           <div class="flex space-x-2 align-center">
             <div class="pr-2">
-              <router-link to="/logout" class="hover:text-primary-100">Logout</router-link>
+              <dm-button
+                bg-color="primary-100"
+                text-color="primary"
+                hover-color="primary-300"
+                hover-text-color="primary"
+                rounded
+                class="hover:text-primary-100"
+              >Logout</dm-button>
             </div>
           </div>
         </template>
       </template>
     </navbar>
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
-      <aside
-        v-if="isLoggedIn()"
-        class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in bg-primary"
-      >
+      <sidebar v-if="isLoggedIn()" bg-color="primary" text-color="white">
         <div router="true" class="sidebar-content px-4 py-4">
           <ul class="flext flex-col w-full">
             <li class="my-px">
@@ -118,7 +128,7 @@
             </li>
           </ul>
         </div>
-      </aside>
+      </sidebar>
       <div class="flex justify-center w-full">
         <router-view />
       </div>
@@ -130,10 +140,14 @@
 import { defineComponent, ref } from "vue";
 import { useState } from "@/store/store";
 import Navbar from "@/components/Navbar.vue";
+import Sidebar from "@/components/Sidebar.vue";
+import DmButton from "@/components/Button.vue";
 
 export default defineComponent({
   components: {
     Navbar,
+    Sidebar,
+    DmButton,
   },
   setup() {
     document.title = "Devmarks";
