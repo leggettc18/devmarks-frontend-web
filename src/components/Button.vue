@@ -45,7 +45,7 @@ export default defineComponent({
         rounded: props.rounded,
         [`bg-${props.type}-700`]: true,
         "text-white": true,
-        [`hover:bg-${props.type}-900`]: true,
+        [`hover:bg-${props.type}-800`]: true,
       };
     } else {
       classes = {

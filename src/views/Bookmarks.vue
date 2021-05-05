@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button @click="dialogVisible = true">Add Bookmark</el-button>
+    <dm-button dark type="primary" rounded @click="dialogVisible = true">Add Bookmark</dm-button>
     <el-dialog v-model="dialogVisible" title="Add Bookmark" width="30%">
       <el-form ref="form" :model="form" label-width="120px" label-position="top">
         <el-form-item label="Name">
@@ -49,9 +49,13 @@ import {
   useNewBookmarkMutation,
   useDeleteBookmarkMutation,
 } from "../generated/graphql";
+import DmButton from "@/components/Button.vue";
 
 export default defineComponent({
   name: "Bookmarks",
+  components: {
+    DmButton,
+  },
   setup() {
     const state = useState();
     const token = state.getToken();
