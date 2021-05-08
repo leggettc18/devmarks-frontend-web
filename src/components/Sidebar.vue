@@ -1,14 +1,11 @@
 <template>
-  <aside
-    class="sidebar w-64 md:shadow transform -translate-x-full md:translate-x-0 transition-transform duration-150 ease-in"
-    :class="`bg-${bgColor}`"
-  >
+  <aside v-if="mountSidebar" class="min-h-screen" :class="`bg-${bgColor}`">
     <slot></slot>
   </aside>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, watch } from "vue";
 
 export default defineComponent({
   name: "Sidebar",
@@ -21,6 +18,31 @@ export default defineComponent({
       type: String,
       default: "white",
     },
+    modelValue: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  emits: ["update:modelValue"],
+  setup(props, { emit }) {
+    const mountSidebar = ref(props.modelValue);
+
+    const close = () => {
+      emit("update:modelValue", false);
+      mountSidebar.value = props.modelValue;
+    };
+
+    watch(
+      () => props.modelValue,
+      (value) => {
+        mountSidebar.value = value;
+      }
+    );
+
+    return {
+      close,
+      mountSidebar,
+    };
   },
 });
 </script>

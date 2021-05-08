@@ -35,6 +35,7 @@
     <navbar bg-color="primary" text-color="white">
       <template #nav-left>
         <div class="flex space-x-2 pl-2 items-center">
+          <dm-button rounded type="primary" @click="showSidebar = !showSidebar">Toggle Sidebar</dm-button>
           <img src="@/assets/logo-inverted.svg" width="35" />
           <router-link to="/" class="hover:text-primary-100">
             <div>Devmarks</div>
@@ -62,7 +63,7 @@
       </template>
     </navbar>
     <div class="flex flex-row min-h-screen bg-gray-100 text-gray-800">
-      <sidebar v-if="isLoggedIn()" bg-color="primary" text-color="white">
+      <sidebar v-if="isLoggedIn()" v-model="showSidebar" bg-color="primary" text-color="white">
         <div router="true" class="sidebar-content px-4 py-4">
           <ul class="flext flex-col w-full">
             <li class="my-px">
@@ -139,7 +140,7 @@ export default defineComponent({
   setup() {
     document.title = "Devmarks";
     const state = useState();
-    const isCollapse = ref(false);
+    const showSidebar = ref(true);
 
     const isLoggedIn = () => {
       return state.isUserSet();
@@ -147,14 +148,9 @@ export default defineComponent({
 
     return {
       state,
-      isCollapse,
       isLoggedIn,
+      showSidebar,
     };
-  },
-  computed: {
-    collapseIcon(): string {
-      return this.isCollapse ? "el-icon-s-unfold" : "el-icon-s-fold";
-    },
   },
 });
 </script>
