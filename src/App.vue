@@ -85,7 +85,7 @@
           </ul>
         </div>
       </sidebar>
-      <div class="flex justify-center w-full">
+      <div class="flex justify-center w-full p-5">
         <router-view />
       </div>
     </div>
