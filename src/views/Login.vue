@@ -20,8 +20,8 @@
         </el-form-item>
         <el-form-item>
           <el-row type="flex" justify="center">
-            <el-button type="primary" @click.prevent="login()">Login</el-button>
-            <el-button>Cancel</el-button>
+            <dm-button type="primary" dark rounded @click.prevent="login()">Login</dm-button>
+            <dm-button type="gray" rounded>Cancel</dm-button>
           </el-row>
         </el-form-item>
       </el-form>
@@ -39,9 +39,13 @@ import { Credentials } from "@/models/auth";
 import { useLoginMutation } from "@/generated/graphql";
 import router from "@/router";
 import { GraphQLError } from "graphql";
+import DmButton from "@/components/Button.vue";
 
 export default defineComponent({
   name: "Login",
+  components: {
+    DmButton,
+  },
   setup() {
     const state = useState();
 

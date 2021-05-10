@@ -10,8 +10,8 @@
         </el-form-item>
         <el-form-item>
           <el-row type="flex" justify="center">
-            <el-button type="primary" @click.prevent="register(form)">Login</el-button>
-            <el-button>Cancel</el-button>
+            <dm-button type="primary" dark rounded @click.prevent="register(form)">Login</dm-button>
+            <dm-button type="gray" rounded>Cancel</dm-button>
           </el-row>
         </el-form-item>
       </el-form>
@@ -26,9 +26,13 @@ import { useState } from "../store/store";
 import { Credentials } from "@/models/auth";
 import { useRegisterMutation } from "@/generated/graphql";
 import router from "@/router";
+import DmButton from "@/components/Button.vue";
 
 export default defineComponent({
   name: "Register",
+  components: {
+    DmButton,
+  },
   setup() {
     const state = useState();
 
