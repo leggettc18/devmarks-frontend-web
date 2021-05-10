@@ -1,35 +1,33 @@
 <template>
-  <el-row type="flex" justify="center">
-    <el-col :span="10">
-      <el-form ref="form" label-width="120px" label-position="top">
-        <el-form-item label="E-Mail">
-          <el-input v-model="form.email" type="email" placeholder="E-Mail"></el-input>
-          <template v-if="loginErrors.email">
-            <div v-for="(error, i) in loginErrors.email" :key="i">
-              <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
-            </div>
-          </template>
-        </el-form-item>
-        <el-form-item label="Password">
-          <el-input v-model="form.password" type="password" placeholder="Password"></el-input>
-          <template v-if="loginErrors.password">
-            <div v-for="(error, i) in loginErrors.password" :key="i">
-              <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
-            </div>
-          </template>
-        </el-form-item>
-        <el-form-item>
-          <el-row type="flex" justify="center">
-            <dm-button type="primary" dark rounded @click.prevent="login()">Login</dm-button>
-            <dm-button type="gray" rounded>Cancel</dm-button>
-          </el-row>
-        </el-form-item>
-      </el-form>
-      <div v-if="loginErrors && !loading">
-        <div v-for="(e, i) of loginErrors.email" :key="i">{{e.extensions.message}}</div>
-      </div>
-    </el-col>
-  </el-row>
+  <div>
+    <el-form ref="form" label-width="120px" label-position="top">
+      <el-form-item label="E-Mail">
+        <el-input v-model="form.email" type="email" placeholder="E-Mail"></el-input>
+        <template v-if="loginErrors.email">
+          <div v-for="(error, i) in loginErrors.email" :key="i">
+            <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
+          </div>
+        </template>
+      </el-form-item>
+      <el-form-item label="Password">
+        <el-input v-model="form.password" type="password" placeholder="Password"></el-input>
+        <template v-if="loginErrors.password">
+          <div v-for="(error, i) in loginErrors.password" :key="i">
+            <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
+          </div>
+        </template>
+      </el-form-item>
+      <el-form-item>
+        <el-row type="flex" justify="center">
+          <dm-button type="primary" dark rounded @click.prevent="login()">Login</dm-button>
+          <dm-button type="gray" rounded>Cancel</dm-button>
+        </el-row>
+      </el-form-item>
+    </el-form>
+    <div v-if="loginErrors && !loading">
+      <div v-for="(e, i) of loginErrors.email" :key="i">{{e.extensions.message}}</div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
