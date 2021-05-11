@@ -1,8 +1,8 @@
 <template>
-  <router-link v-if="routerLink" :to="link-to" :class="classes" class="p-1 shadow">
+  <router-link v-if="routerLink" :to="link-to" :class="classes" class="p-2 shadow">
     <slot></slot>
   </router-link>
-  <button v-else :class="classes" class="p-1 shadow">
+  <button v-else :class="classes" class="p-2 shadow">
     <slot></slot>
   </button>
 </template>
