@@ -1,22 +1,18 @@
 <template>
   <div>
     <el-form ref="form" label-width="120px" label-position="top">
-      <el-form-item label="E-Mail">
-        <el-input v-model="form.email" type="email" placeholder="E-Mail"></el-input>
-        <template v-if="loginErrors.email">
-          <div v-for="(error, i) in loginErrors.email" :key="i">
-            <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
-          </div>
-        </template>
-      </el-form-item>
-      <el-form-item label="Password">
-        <el-input v-model="form.password" type="password" placeholder="Password"></el-input>
-        <template v-if="loginErrors.password">
-          <div v-for="(error, i) in loginErrors.password" :key="i">
-            <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
-          </div>
-        </template>
-      </el-form-item>
+      <dm-input v-model="form.email" name="email" label="E-Mail"></dm-input>
+      <template v-if="loginErrors.email">
+        <div v-for="(error, i) in loginErrors.email" :key="i">
+          <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
+        </div>
+      </template>
+      <dm-input v-model="form.password" type="password" name="password" label="Password"></dm-input>
+      <template v-if="loginErrors.password">
+        <div v-for="(error, i) in loginErrors.password" :key="i">
+          <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
+        </div>
+      </template>
       <el-form-item>
         <el-row type="flex" justify="center">
           <dm-button type="primary" dark rounded @click.prevent="login()">Login</dm-button>
@@ -38,11 +34,13 @@ import { useLoginMutation } from "@/generated/graphql";
 import router from "@/router";
 import { GraphQLError } from "graphql";
 import DmButton from "@/components/Button.vue";
+import DmInput from "@/components/Input.vue";
 
 export default defineComponent({
   name: "Login",
   components: {
     DmButton,
+    DmInput,
   },
   setup() {
     const state = useState();
