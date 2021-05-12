@@ -1,6 +1,14 @@
 <template>
   <div>
-    <dm-input v-model="form.email" type="email" name="email" label="E-Mail" color="primary"></dm-input>
+    <dm-input
+      v-model="form.email"
+      type="email"
+      name="email"
+      label="E-Mail"
+      color="primary"
+      :error="loginErrors.email"
+      @update:modelValue="loginErrors.email = null"
+    ></dm-input>
     <template v-if="loginErrors.email">
       <div v-for="(error, i) in loginErrors.email" :key="i">
         <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
@@ -12,6 +20,8 @@
       name="password"
       label="Password"
       color="primary"
+      :error="loginErrors"
+      @update:modelValue="loginErrors.password = null"
     ></dm-input>
     <template v-if="loginErrors.password">
       <div v-for="(error, i) in loginErrors.password" :key="i">
