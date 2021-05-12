@@ -1,23 +1,38 @@
 <template>
-  <el-row type="flex" justify="center">
-    <el-col :span="10">
-      <el-form ref="form" :model="form" label-width="120px" label-position="top">
-        <el-form-item label="E-mail">
-          <el-input v-model="form.email" type="email" placeholder="E-Mail"></el-input>
-        </el-form-item>
-        <el-form-item label="Password">
-          <el-input v-model="form.password" type="password" placeholder="Password"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-row type="flex" justify="center">
-            <dm-button type="primary" dark rounded @click.prevent="register(form)">Login</dm-button>
-            <dm-button type="gray" rounded>Cancel</dm-button>
-          </el-row>
-        </el-form-item>
-      </el-form>
-      <div v-if="registerError">Error: {{registerError.message}}</div>
-    </el-col>
-  </el-row>
+  <div>
+    <dm-input
+      v-model="form.email"
+      type="email"
+      label="E-Mail"
+      name="email"
+      color="primary"
+      :error="registerErrors.email"
+      @update:modelValue="registerErros.email = null"
+    ></dm-input>
+    <template v-if="registerErrors.email">
+      <div v-for="(error, i) in registerErrors.email" :key="i">
+        <span v-if="error.extensions" class="text-danger">{{error.extensions.message}}</span>
+      </div>
+    </template>
+    <dm-input
+      v-model="form.password"
+      type="password"
+      label="Password"
+      name="password"
+      color="primary"
+      :error="registerErrors.password"
+      @update:modelValue="registerErrors.password = null"
+    ></dm-input>
+    <template v-if="registerErrors.password">
+      <div v-for="(error, i) in registerErrors.password" :key="i">
+        <span v-if="error.extensions" class="text-danger">{{error.extensions.message}}</span>
+      </div>
+    </template>
+    <div class="flex justify-center space-x-4">
+      <dm-button type="primary" dark rounded @click.prevent="register(form)">Login</dm-button>
+      <dm-button type="gray" rounded>Cancel</dm-button>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -27,11 +42,14 @@ import { Credentials } from "@/models/auth";
 import { useRegisterMutation } from "@/generated/graphql";
 import router from "@/router";
 import DmButton from "@/components/Button.vue";
+import DmInput from "@/components/Input.vue";
+import { GraphQLError } from "graphql";
 
 export default defineComponent({
   name: "Register",
   components: {
     DmButton,
+    DmInput,
   },
   setup() {
     const state = useState();
@@ -41,12 +59,22 @@ export default defineComponent({
       password: "",
     } as Credentials);
 
+    const registerErrors = ref({
+      email: null,
+      password: null,
+    } as {
+      email: null | GraphQLError[];
+      password: null | GraphQLError[];
+    });
+
     const {
       mutate: register,
       onDone,
       error: registerError,
+      loading,
     } = useRegisterMutation(() => ({
       variables: credentials.value,
+      errorPolicy: "all",
     }));
 
     onDone((register) => {
@@ -55,12 +83,22 @@ export default defineComponent({
         state.storeUser(register.data?.register?.user);
         router.push("/home");
       }
+      if (register.errors) {
+        registerErrors.value.email = register.errors.filter((e) => {
+          return e.extensions?.field === "email";
+        });
+        registerErrors.value.password = register.errors.filter((e) => {
+          return e.extensions?.field === "password";
+        });
+      }
     });
     return {
       state,
       register,
       credentials,
       registerError,
+      registerErrors,
+      loading,
     };
   },
   data() {
