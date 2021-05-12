@@ -1,12 +1,18 @@
 <template>
   <div>
-    <dm-input v-model="form.email" name="email" label="E-Mail"></dm-input>
+    <dm-input v-model="form.email" type="email" name="email" label="E-Mail" color="primary"></dm-input>
     <template v-if="loginErrors.email">
       <div v-for="(error, i) in loginErrors.email" :key="i">
         <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
       </div>
     </template>
-    <dm-input v-model="form.password" type="password" name="password" label="Password"></dm-input>
+    <dm-input
+      v-model="form.password"
+      type="password"
+      name="password"
+      label="Password"
+      color="primary"
+    ></dm-input>
     <template v-if="loginErrors.password">
       <div v-for="(error, i) in loginErrors.password" :key="i">
         <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>

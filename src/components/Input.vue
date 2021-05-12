@@ -5,7 +5,8 @@
       :name="name"
       placeholder=" "
       required
-      class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 focus:border-black border-gray-200"
+      class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 border-gray-200"
+      :class="`focus:border-${color}`"
       @input="$emit('update:modelValue', $event.target.value)"
     />
     <label :for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">{{label}}</label>
@@ -32,6 +33,10 @@ export default defineComponent({
     type: {
       type: String,
       default: "text",
+    },
+    color: {
+      type: String,
+      default: "black",
     },
   },
   emits: ["update:modelValue"],
