@@ -20,7 +20,7 @@
       name="password"
       label="Password"
       color="primary"
-      :error="loginErrors"
+      :error="loginErrors.password"
       @update:modelValue="loginErrors.password = null"
     ></dm-input>
     <template v-if="loginErrors.password">
