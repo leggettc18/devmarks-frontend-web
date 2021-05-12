@@ -3,7 +3,21 @@
     <navbar bg-color="primary" text-color="white">
       <template #nav-left>
         <div class="flex space-x-2 pl-2 items-center">
-          <dm-button rounded type="primary" @click="showSidebar = !showSidebar">Toggle Sidebar</dm-button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6 hover:text-primary-400"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            @click="showSidebar = !showSidebar"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
           <img src="@/assets/logo-inverted.svg" width="35" />
           <router-link to="/" class="hover:text-primary-100">
             <div>Devmarks</div>
