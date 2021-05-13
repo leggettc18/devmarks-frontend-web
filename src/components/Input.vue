@@ -6,7 +6,7 @@
       placeholder=" "
       required
       class="pt-3 pb-2 block w-full px-0 mt-0 bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0"
-      :class="`focus:border-${color}, border-${error ? 'danger-700' : 'gray-200'}`"
+      :class="`border-${error ? 'danger-700' : 'gray-200'}, focus:border-${color}`"
       @input="$emit('update:modelValue', $event.target.value)"
     />
     <label :for="name" class="absolute duration-300 top-3 -z-1 origin-0 text-gray-500">{{label}}</label>
