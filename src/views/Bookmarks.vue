@@ -3,37 +3,33 @@
     <dm-button dark type="primary" rounded @click="dialogVisible = true">Add Bookmark</dm-button>
     <el-dialog v-model="dialogVisible" title="Add Bookmark" width="30%">
       <el-form ref="form" :model="form" label-width="120px" label-position="top">
-        <el-form-item label="Name">
-          <el-input v-model="newBookmark.name" type="text" placeholder="Name"></el-input>
-        </el-form-item>
-        <el-form-item label="Url">
-          <el-input v-model="newBookmark.url" type="text" placeholder="URL (www.example.com)"></el-input>
-        </el-form-item>
+        <dm-input v-model="newBookmark.name" type="text" name="name" label="Name" color="primary"></dm-input>
+        <dm-input v-model="newBookmark.url" type="text" name="url" label="URL" color="primary"></dm-input>
         <el-form-item>
           <el-color-picker v-model="newBookmark.color"></el-color-picker>
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="dialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="handleSubmit()">Submit</el-button>
+          <dm-button type="danger" @click="dialogVisible = false">Cancel</dm-button>
+          <dm-button type="primary" @click="handleSubmit()">Submit</dm-button>
         </span>
       </template>
     </el-dialog>
-    <el-row type="flex" justify="center" :gutter="20">
+    <div class="flex justify-center">
       <template v-if="loading">Loading...</template>
       <template v-else-if="error">Error: {{error.message}}</template>
       <template v-else-if="bookmarks">
-        <el-col v-for="(bookmark, i) in bookmarks" :key="i" :span="8">
-          <el-card type="box-card" class="mv-20">
-            <div class="card-text">
+        <div v-for="(bookmark, i) in bookmarks" :key="i" :span="8">
+          <card color="primary" class="m-4">
+            <div class="flex space-x-4 items-center">
               <a :href="bookmark.url">{{bookmark.name}}</a>
-              <el-button type="danger" @click="handleDelete(bookmark.id)">Delete</el-button>
+              <dm-button type="danger" @click="handleDelete(bookmark.id)">Delete</dm-button>
             </div>
-          </el-card>
-        </el-col>
+          </card>
+        </div>
       </template>
-    </el-row>
+    </div>
   </div>
 </template>
 
@@ -50,11 +46,15 @@ import {
   useDeleteBookmarkMutation,
 } from "../generated/graphql";
 import DmButton from "@/components/Button.vue";
+import DmInput from "@/components/Input.vue";
+import Card from "@/components/Card.vue";
 
 export default defineComponent({
   name: "Bookmarks",
   components: {
     DmButton,
+    DmInput,
+    Card,
   },
   setup() {
     const state = useState();
