@@ -1,11 +1,16 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <dm-button dark type="primary" rounded @click="dialogVisible = true">Add Bookmark</dm-button>
+      <dm-button dark type="primary" rounded @click="openDialog()">Add Bookmark</dm-button>
     </div>
-    <transition-root appear :show="dialogVisible" as="template">
-      <hu-dialog as="div" :open="dialogVisible" @close="dialogVisible = false">
-        <div class="fixed inset-0 z-10 overflow-y-auto">
+    <TransitionRoot appear :show="dialogVisible" as="template">
+      <Dialog
+        as="div"
+        :open="true"
+        class="fixed inset-0 z-10 overflow-y-auto"
+        @close="closeDialog()"
+      >
+        <div class="flex justify-center items-center">
           <div class="min-h-screen px-4 text-center">
             <transition-child
               as="template"
@@ -16,7 +21,7 @@
               leave-from="opacity-100"
               leave-to="opacity-0"
             >
-              <dialog-overlay class="fixed inset-0" />
+              <dialog-overlay class="fixed inset-0 bg-black bg-opacity-30" />
             </transition-child>
 
             <span class="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
@@ -35,7 +40,7 @@
               >
                 <dialog-title
                   as="h3"
-                  class="text-lg font-medium leading-6 text-gray-900"
+                  class="text-lg font-medium leading-6 text-gray-900 pb-4"
                 >Add Bookmark</dialog-title>
                 <div>
                   <dm-input
@@ -61,8 +66,8 @@
             </transition-child>
           </div>
         </div>
-      </hu-dialog>
-    </transition-root>
+      </Dialog>
+    </TransitionRoot>
     <div class="flex justify-center">
       <template v-if="loading">Loading...</template>
       <template v-else-if="error">Error: {{error.message}}</template>
@@ -110,7 +115,7 @@ import {
 import {
   TransitionChild,
   TransitionRoot,
-  Dialog as HuDialog,
+  Dialog,
   DialogOverlay,
   DialogTitle,
 } from "@headlessui/vue";
@@ -126,7 +131,7 @@ export default defineComponent({
     Card,
     TransitionChild,
     TransitionRoot,
-    HuDialog,
+    Dialog,
     DialogOverlay,
     DialogTitle,
   },
@@ -137,6 +142,12 @@ export default defineComponent({
     if (!token) {
       return {};
     }
+    const openDialog = () => {
+      dialogVisible.value = true;
+    };
+    const closeDialog = () => {
+      dialogVisible.value = false;
+    };
     const { result, loading, error } = useGetBookmarksQuery();
     const bookmarks = useResult(result);
 
@@ -199,6 +210,8 @@ export default defineComponent({
 
     return {
       dialogVisible,
+      openDialog,
+      closeDialog,
       bookmarks,
       loading,
       error,
