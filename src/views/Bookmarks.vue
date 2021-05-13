@@ -3,18 +3,66 @@
     <div class="flex justify-center">
       <dm-button dark type="primary" rounded @click="dialogVisible = true">Add Bookmark</dm-button>
     </div>
-    <el-dialog v-model="dialogVisible" title="Add Bookmark">
-      <div>
-        <dm-input v-model="newBookmark.name" type="text" name="name" label="Name" color="primary"></dm-input>
-        <dm-input v-model="newBookmark.url" type="text" name="url" label="URL" color="primary"></dm-input>
-      </div>
-      <template #footer>
-        <span class="dialog-footer flex space-x-4">
-          <dm-button type="danger" @click="dialogVisible = false">Cancel</dm-button>
-          <dm-button type="primary" @click="handleSubmit()">Submit</dm-button>
-        </span>
-      </template>
-    </el-dialog>
+    <transition-root appear :show="dialogVisible" as="template">
+      <hu-dialog as="div" :open="dialogVisible" @close="dialogVisible = false">
+        <div class="fixed inset-0 z-10 overflow-y-auto">
+          <div class="min-h-screen px-4 text-center">
+            <transition-child
+              as="template"
+              enter="duration-300 ease-out"
+              enter-from="opacity-0"
+              enter-to="opacity-100"
+              leave="duration-200 ease-in"
+              leave-from="opacity-100"
+              leave-to="opacity-0"
+            >
+              <dialog-overlay class="fixed inset-0" />
+            </transition-child>
+
+            <span class="inline-block h-screen align-middle" aria-hidden="true">&#8203;</span>
+
+            <transition-child
+              as="template"
+              enter="duration-300 ease-out"
+              enter-from="opacity-0 scale-95"
+              enter-to="opacity-100 scale-100"
+              leave="duration-200 ease-in"
+              leave-from="opacity-100 scale-100"
+              leave-to="opacity-0 scale-95"
+            >
+              <div
+                class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
+              >
+                <dialog-title
+                  as="h3"
+                  class="text-lg font-medium leading-6 text-gray-900"
+                >Add Bookmark</dialog-title>
+                <div>
+                  <dm-input
+                    v-model="newBookmark.name"
+                    type="text"
+                    name="name"
+                    label="Name"
+                    color="primary"
+                  ></dm-input>
+                  <dm-input
+                    v-model="newBookmark.url"
+                    type="text"
+                    name="url"
+                    label="URL"
+                    color="primary"
+                  ></dm-input>
+                </div>
+                <span class="dialog-footer flex space-x-4">
+                  <dm-button type="danger" @click="dialogVisible = false">Cancel</dm-button>
+                  <dm-button type="primary" @click="handleSubmit()">Submit</dm-button>
+                </span>
+              </div>
+            </transition-child>
+          </div>
+        </div>
+      </hu-dialog>
+    </transition-root>
     <div class="flex justify-center">
       <template v-if="loading">Loading...</template>
       <template v-else-if="error">Error: {{error.message}}</template>
@@ -59,6 +107,13 @@ import {
   useNewBookmarkMutation,
   useDeleteBookmarkMutation,
 } from "../generated/graphql";
+import {
+  TransitionChild,
+  TransitionRoot,
+  Dialog as HuDialog,
+  DialogOverlay,
+  DialogTitle,
+} from "@headlessui/vue";
 import DmButton from "@/components/Button.vue";
 import DmInput from "@/components/Input.vue";
 import Card from "@/components/Card.vue";
@@ -69,6 +124,11 @@ export default defineComponent({
     DmButton,
     DmInput,
     Card,
+    TransitionChild,
+    TransitionRoot,
+    HuDialog,
+    DialogOverlay,
+    DialogTitle,
   },
   setup() {
     const state = useState();
