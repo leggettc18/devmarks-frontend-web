@@ -4,12 +4,7 @@
       <dm-button dark type="primary" rounded @click="openDialog()">Add Bookmark</dm-button>
     </div>
     <TransitionRoot appear :show="dialogVisible" as="template">
-      <Dialog
-        as="div"
-        :open="true"
-        class="fixed inset-0 z-10 overflow-y-auto"
-        @close="closeDialog()"
-      >
+      <Dialog as="div" class="fixed inset-0 z-10 overflow-y-auto" @close="closeDialog()">
         <div class="flex justify-center items-center">
           <div class="min-h-screen px-4 text-center">
             <transition-child

@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.3.11",
-    "@headlessui/vue": "^1.1.1",
+    "@headlessui/vue": "^1.2.0",
     "@vue/apollo-composable": "^4.0.0-alpha.12",
     "autoprefixer": "^9",
     "axios": "^0.21.1",
