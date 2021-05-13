@@ -3,14 +3,11 @@
     <div class="flex justify-center">
       <dm-button dark type="primary" rounded @click="dialogVisible = true">Add Bookmark</dm-button>
     </div>
-    <el-dialog v-model="dialogVisible" title="Add Bookmark" width="30%">
-      <el-form ref="form" :model="form" label-width="120px" label-position="top">
+    <el-dialog v-model="dialogVisible" title="Add Bookmark">
+      <div>
         <dm-input v-model="newBookmark.name" type="text" name="name" label="Name" color="primary"></dm-input>
         <dm-input v-model="newBookmark.url" type="text" name="url" label="URL" color="primary"></dm-input>
-        <el-form-item>
-          <el-color-picker v-model="newBookmark.color"></el-color-picker>
-        </el-form-item>
-      </el-form>
+      </div>
       <template #footer>
         <span class="dialog-footer">
           <dm-button type="danger" @click="dialogVisible = false">Cancel</dm-button>
