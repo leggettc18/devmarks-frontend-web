@@ -1,6 +1,8 @@
 <template>
   <div>
-    <dm-button dark type="primary" rounded @click="dialogVisible = true">Add Bookmark</dm-button>
+    <div class="flex justify-center">
+      <dm-button dark type="primary" rounded @click="dialogVisible = true">Add Bookmark</dm-button>
+    </div>
     <el-dialog v-model="dialogVisible" title="Add Bookmark" width="30%">
       <el-form ref="form" :model="form" label-width="120px" label-position="top">
         <dm-input v-model="newBookmark.name" type="text" name="name" label="Name" color="primary"></dm-input>
