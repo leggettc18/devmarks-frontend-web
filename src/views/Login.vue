@@ -6,12 +6,12 @@
       name="email"
       label="E-Mail"
       color="primary"
-      :error="loginErrors.email"
+      :error="loginErrors.emaili != null"
       @update:modelValue="loginErrors.email = null"
     ></dm-input>
     <template v-if="loginErrors.email">
       <div v-for="(error, i) in loginErrors.email" :key="i">
-        <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
+        <span v-if="error.extensions" class="text-danger-700">{{error.extensions.message}}</span>
       </div>
     </template>
     <dm-input
@@ -20,12 +20,12 @@
       name="password"
       label="Password"
       color="primary"
-      :error="loginErrors.password"
+      :error="loginErrors.password != null"
       @update:modelValue="loginErrors.password = null"
     ></dm-input>
     <template v-if="loginErrors.password">
       <div v-for="(error, i) in loginErrors.password" :key="i">
-        <span v-if="error.extensions" class="error">{{error.extensions.message}}</span>
+        <span v-if="error.extensions" class="text-danger-700">{{error.extensions.message}}</span>
       </div>
     </template>
     <div class="flex justify-center space-x-4">

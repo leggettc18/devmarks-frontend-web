@@ -6,7 +6,7 @@
       label="E-Mail"
       name="email"
       color="primary"
-      :error="registerErrors.email"
+      :error="registerErrors.email != null"
       @update:modelValue="registerErros.email = null"
     ></dm-input>
     <template v-if="registerErrors.email">
@@ -20,7 +20,7 @@
       label="Password"
       name="password"
       color="primary"
-      :error="registerErrors.password"
+      :error="registerErrors.password != null"
       @update:modelValue="registerErrors.password = null"
     ></dm-input>
     <template v-if="registerErrors.password">
