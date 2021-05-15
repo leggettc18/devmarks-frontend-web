@@ -63,11 +63,11 @@
         </div>
       </Dialog>
     </TransitionRoot>
-    <div class="flex justify-center">
+    <div class="flex justify-center flex-wrap">
       <template v-if="loading">Loading...</template>
       <template v-else-if="error">Error: {{error.message}}</template>
       <template v-else-if="bookmarks">
-        <div v-for="(bookmark, i) in bookmarks" :key="i" :span="8">
+        <div v-for="(bookmark, i) in bookmarks" :key="i">
           <card color="primary" class="m-4">
             <div class="flex space-x-4 items-center">
               <a :href="bookmark.url">{{bookmark.name}}</a>
