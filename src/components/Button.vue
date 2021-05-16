@@ -1,8 +1,13 @@
 <template>
-  <router-link v-if="routerLink" :to="link-to" :class="classes" class="p-2 shadow">
+  <router-link
+    v-if="routerLink"
+    :to="link-to"
+    :class="classes"
+    class="transition duration-300 p-2 shadow"
+  >
     <slot></slot>
   </router-link>
-  <button v-else :class="classes" class="p-2 shadow">
+  <button v-else :class="classes" class="p-2 shadow transition duration-300">
     <slot></slot>
   </button>
 </template>
@@ -50,7 +55,7 @@ export default defineComponent({
     } else {
       classes = {
         rounded: props.rounded,
-        [`bg-${props.type}-100`]: true,
+        [`bg-${props.type}-200`]: true,
         [`text-${props.type}-700`]: true,
         [`hover:bg-${props.type}-300`]: true,
       };
