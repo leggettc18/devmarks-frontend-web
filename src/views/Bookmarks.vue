@@ -168,7 +168,6 @@ export default defineComponent({
             query: GetBookmarksDocument,
             data: { bookmarks: [...data.bookmarks, submittedBookmark] },
           });
-          console.log(data);
         }
       },
     }));
@@ -182,17 +181,19 @@ export default defineComponent({
 
     const { mutate: deleteBookmark } = useDeleteBookmarkMutation(() => ({
       variables: { id: `${deleteId.value}` },
-      update: (cache, { data: deletedBookmark }) => {
+      update: (cache) => {
         const data = cache.readQuery<GetBookmarksQuery>({
           query: GetBookmarksDocument,
         });
-        const newData = data?.bookmarks?.filter((bookmark) => {
-          bookmark.id != `${deleteId.value}`;
-        });
         if (data?.bookmarks) {
+          const bookmarks = data.bookmarks.filter((bookmark) => {
+            console.log(bookmark.id !== `${deleteId.value}`);
+            return bookmark.id !== `${deleteId.value}`;
+          });
+          console.log(bookmarks);
           cache.writeQuery<GetBookmarksQuery>({
             query: GetBookmarksDocument,
-            data: { bookmarks: newData },
+            data: { bookmarks },
           });
         }
       },
