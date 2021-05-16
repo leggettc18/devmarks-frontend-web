@@ -4,6 +4,7 @@
       <template #nav-left>
         <div class="flex space-x-2 pl-2 items-center">
           <svg
+            v-show="isLoggedIn()"
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6 hover:text-primary-400"
             fill="none"
@@ -116,6 +117,7 @@ import { useState } from "@/store/store";
 import Navbar from "@/components/Navbar.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import DmButton from "@/components/Button.vue";
+import router from "./router";
 
 export default defineComponent({
   components: {
@@ -134,6 +136,7 @@ export default defineComponent({
 
     const logout = () => {
       state.logOut();
+      router.push("/");
     };
 
     return {
