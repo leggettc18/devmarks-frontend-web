@@ -1,14 +1,18 @@
 <template>
   <div align="center" justify="center">
-    <img src="../assets/logo.svg" max-width="150" class="ma-5" />
-    <p class="text-h1">Devmarks</p>
+    <BrandIcon></BrandIcon>
+    <p class="text-3xl">Devmarks</p>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import BrandIcon from "@/components/BrandIcon.vue";
 
 export default defineComponent({
   name: "Home",
+  components: {
+    BrandIcon,
+  },
 });
 </script>

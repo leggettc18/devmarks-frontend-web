@@ -19,7 +19,7 @@
               d="M4 6h16M4 12h16M4 18h16"
             />
           </svg>
-          <img src="@/assets/logo-inverted.svg" width="35" />
+          <BrandIcon class="h-8 w-8" fill-color="#ffffff" inner-color="#59344f"></BrandIcon>
           <router-link to="/" class="hover:text-primary-100">
             <div>Devmarks</div>
           </router-link>
@@ -115,6 +115,7 @@ import { useState } from "@/store/store";
 import Navbar from "@/components/Navbar.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import DmButton from "@/components/Button.vue";
+import BrandIcon from "@/components/BrandIcon.vue";
 import router from "./router";
 
 export default defineComponent({
@@ -122,6 +123,7 @@ export default defineComponent({
     Navbar,
     Sidebar,
     DmButton,
+    BrandIcon,
   },
   setup() {
     document.title = "Devmarks";
