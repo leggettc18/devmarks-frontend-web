@@ -15,50 +15,7 @@
     sodipodi:docname="logo.svg"
     inkscape:version="0.92.4 5da689c313, 2019-01-14"
   >
-    <defs id="defs2">
-      <inkscape:path-effect
-        id="path-effect906"
-        effect="bend_path"
-        is_visible="true"
-        bendpath="M 63.761307,129.76535 H 108.29611"
-        prop_scale="1"
-        scale_y_rel="false"
-        vertical="false"
-      />
-    </defs>
-    <sodipodi:namedview
-      id="base"
-      pagecolor="#ffffff"
-      border-color="#666666"
-      borderopacity="1.0"
-      inkscape:pageopacity="0.0"
-      inkscape:pageshadow="2"
-      inkscape:zoom="1.0494603"
-      inkscape:cx="-58.273411"
-      inkscape:cy="128.84284"
-      inkscape:document-units="mm"
-      inkscape:current-layer="layer1"
-      showgrid="false"
-      inkscape:window-width="1920"
-      inkscape:window-height="1017"
-      inkscape:window-x="0"
-      inkscape:window-y="30"
-      inkscape:window-maximized="1"
-      inkscape:snap-page="true"
-      fit-margin-top="0"
-      fit-margin-left="0"
-      fit-margin-right="0"
-      fit-margin-bottom="0"
-    />
-    <metadata id="metadata5">
-      <rdf:RDF>
-        <cc:Work rdf:about>
-          <dc:format>image/svg+xml</dc:format>
-          <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-          <dc:title />
-        </cc:Work>
-      </rdf:RDF>
-    </metadata>
+    <defs id="defs2" />
     <g
       id="layer1"
       inkscape:label="Layer 1"
