@@ -1,7 +1,7 @@
 <template>
   <div align="center" justify="center">
     <BrandIcon></BrandIcon>
-    <p class="text-3xl">Devmarks</p>
+    <h1 class="text-3xl">Devmarks</h1>
   </div>
 </template>
 
