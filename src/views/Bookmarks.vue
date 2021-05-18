@@ -52,6 +52,7 @@
                     label="URL"
                     color="primary"
                   ></dm-input>
+                  <color-picker v-model="newBookmark.color" class="pb-8"></color-picker>
                 </div>
                 <span class="dialog-footer flex space-x-4">
                   <dm-button type="danger" @click="dialogVisible = false">Cancel</dm-button>
@@ -117,6 +118,7 @@ import {
 import DmButton from "@/components/Button.vue";
 import DmInput from "@/components/Input.vue";
 import Card from "@/components/Card.vue";
+import ColorPicker from "@/components/ColorPicker.vue";
 
 export default defineComponent({
   name: "Bookmarks",
@@ -129,6 +131,7 @@ export default defineComponent({
     Dialog,
     DialogOverlay,
     DialogTitle,
+    ColorPicker,
   },
   setup() {
     const state = useState();
