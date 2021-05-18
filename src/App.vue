@@ -53,7 +53,7 @@
               <li class="my-px">
                 <router-link
                   to="/home"
-                  class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-primary-100 hover:text-primary"
+                  class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-primary-100 hover:text-primary transition duration-300"
                 >
                   <span class="flex items-center justify-center text-lg">
                     <svg
@@ -77,7 +77,7 @@
               <li class="my-px">
                 <router-link
                   to="/bookmarks"
-                  class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-primary-100 hover:text-primary"
+                  class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-primary-100 hover:text-primary transition duration-300"
                 >
                   <span class="flex items-center justify-center text-lg">
                     <svg
