@@ -1,6 +1,7 @@
 <template>
   <div class="relative z-0 w-full mb-5">
     <input
+      v-model="inputValue"
       :type="type"
       :name="name"
       placeholder=" "
@@ -12,7 +13,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, ref, watchEffect } from "vue";
 
 export default defineComponent({
   name: "Input",
@@ -42,7 +43,17 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ["update:modelValue", "update:error"],
+  emits: ["input", "update:modelValue", "update:error"],
+  setup(props) {
+    const inputValue = ref(props.modelValue);
+    watchEffect(() => {
+      inputValue.value = props.modelValue;
+    });
+
+    return {
+      inputValue,
+    };
+  },
 });
 </script>
 

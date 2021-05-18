@@ -1,16 +1,14 @@
 <template>
   <div class="flex items-center">
     <div>
-      <label for="colorSelected" class="block font-bold mb-1">Select Color</label>
-      <input
-        id="colorSelected"
+      <dm-input
         v-model="colorSelected"
         type="text"
-        placeholder="Pick a color"
-        class="border border-transparent shadow px-4 py-2 leading-normal text-gray-700 bg-white rounded-md focus:outline-none focus:shadow-outline"
-        readonly
-        @imput="$emit('update:modelValue', $event.target.value)"
-      />
+        name="color"
+        color="primary"
+        label="Pick a color"
+        @input="$emit('update:modelValue', $event.target.value)"
+      ></dm-input>
     </div>
     <div class="relative ml-3 mt-8">
       <button
@@ -79,11 +77,13 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { TransitionRoot } from "@headlessui/vue";
+import DmInput from "@/components/Input.vue";
 
 export default defineComponent({
   name: "ColorPicker",
   components: {
     TransitionRoot,
+    DmInput,
   },
   props: {
     modelValue: {
