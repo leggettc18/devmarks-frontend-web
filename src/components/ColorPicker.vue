@@ -39,8 +39,8 @@
       >
         <div
           v-show="isOpen"
+          ref="colorPopup"
           class="origin-top-left absolute right-0 -top-40 mt-2 w-40 rounded-md shadow-lg"
-          @clickoutside="isOpen = false"
         >
           <div class="rounded-md bg-white shadow-xs px-4 py-3">
             <div class="flex flex-wrap -mx-2">
@@ -78,6 +78,7 @@
 import { defineComponent, ref } from "vue";
 import { TransitionRoot } from "@headlessui/vue";
 import DmInput from "@/components/Input.vue";
+import { onClickOutside } from "@vueuse/core";
 
 export default defineComponent({
   name: "ColorPicker",
@@ -93,6 +94,7 @@ export default defineComponent({
   },
   emits: ["update:modelValue"],
   setup(_, { emit }) {
+    const colorPopup = ref(null);
     const isOpen = ref(false);
     const colors = [
       "#2196F3",
@@ -112,11 +114,16 @@ export default defineComponent({
       isOpen.value = false;
     };
 
+    onClickOutside(colorPopup, () => {
+      isOpen.value = false;
+    });
+
     return {
       isOpen,
       colors,
       colorSelected,
       selectColor,
+      colorPopup,
     };
   },
 });
