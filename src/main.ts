@@ -10,7 +10,7 @@ import {
   createHttpLink,
   InMemoryCache,
 } from "@apollo/client/core";
-import "@/assets/styles.scss";
+import "@/assets/index.css";
 
 const authMiddleware = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem("user-token");
