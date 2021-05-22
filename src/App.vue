@@ -1,12 +1,12 @@
 <template>
-  <div class="min-h-screen flex flex-col">
-    <navbar bg-color="primary" text-color="white" class="h-auto">
+  <div class="min-h-screen flex flex-col" :class="{dark: state.isDarkmode()}">
+    <navbar :dark="state.isDarkmode()" color="primary" class="h-auto">
       <template #nav-left>
         <div class="flex space-x-2 pl-2 items-center">
           <svg
             v-show="isLoggedIn()"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6 hover:text-primary-400"
+            class="h-6 w-6 hover:text-gray-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -20,7 +20,7 @@
             />
           </svg>
           <BrandIcon class="h-8 w-8" fill-color="#ffffff" inner-color="#59344f"></BrandIcon>
-          <router-link to="/" class="hover:text-primary-100">
+          <router-link to="/" class="hover:text-primary-200">
             <div>Devmarks</div>
           </router-link>
         </div>
@@ -29,31 +29,46 @@
         <template v-if="!isLoggedIn()">
           <div class="flex space-x-2 align-center">
             <div>
-              <dm-button router-link to="/register" type="info">Register</dm-button>
+              <dm-button :dark="state.isDarkmode()" router-link to="/register" type="info">Register</dm-button>
             </div>
             <div class="pr-2">
-              <dm-button router-link to="/login" type="secondary">Login</dm-button>
+              <dm-button :dark="state.isDarkmode()" router-link to="/login" type="secondary">Login</dm-button>
             </div>
           </div>
         </template>
         <template v-else>
           <div class="flex space-x-2 align-center">
             <div class="pr-2">
-              <dm-button type="danger" @click="logout">Logout</dm-button>
+              <dm-button :dark="state.isDarkmode()" type="danger" @click="logout">Logout</dm-button>
+            </div>
+            <div class="pr-2">
+              <dm-button
+                :dark="state.isDarkmode()"
+                type="info"
+                @click="state.toggleDarkmode()"
+              >Toggle Theme</dm-button>
             </div>
           </div>
         </template>
       </template>
     </navbar>
-    <div class="flex-1 flex flex-row bg-gray-100 text-gray-800 h-full">
+    <div
+      class="flex-1 flex flex-row bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-100 h-full"
+    >
       <div class="flex fixed md:relative min-h-full">
-        <sidebar v-if="isLoggedIn()" v-model="showSidebar" bg-color="primary" text-color="white">
+        <sidebar
+          v-if="isLoggedIn()"
+          v-model="showSidebar"
+          :dark="state.isDarkmode()"
+          color="primary"
+          class="shadow-2xl"
+        >
           <div router="true" class="sidebar-content px-4 py-4">
-            <ul class="flext flex-col w-full">
+            <ul class="flex flex-col w-full">
               <li class="my-px">
                 <router-link
                   to="/home"
-                  class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-primary-100 hover:text-primary transition duration-300"
+                  class="flex flex-row items-center h-10 px-3 rounded-lg hover:bg-primary-300 hover:text-primary dark:hover:bg-gray-500 dark:hover:text-gray-100 transition duration-300"
                 >
                   <span class="flex items-center justify-center text-lg">
                     <svg
@@ -77,7 +92,7 @@
               <li class="my-px">
                 <router-link
                   to="/bookmarks"
-                  class="flex flex-row items-center h-10 px-3 rounded-lg text-white hover:bg-primary-100 hover:text-primary transition duration-300"
+                  class="flex flex-row items-center h-10 px-3 rounded-lg hover:bg-primary-300 hover:text-primary dark:hover:bg-gray-500 dark:hover:text-gray-100 transition duration-300"
                 >
                   <span class="flex items-center justify-center text-lg">
                     <svg

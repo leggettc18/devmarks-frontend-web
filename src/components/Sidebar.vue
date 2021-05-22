@@ -1,7 +1,7 @@
 <template>
   <aside v-if="mountSidebar">
     <transition name="slide" appear @after-leave="close()">
-      <div v-show="closeSidebar" class="h-full" :class="`bg-${bgColor}`">
+      <div v-show="closeSidebar" class="h-full" :class="classes">
         <slot></slot>
       </div>
     </transition>
@@ -9,26 +9,45 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, watch } from "vue";
+import { computed, defineComponent, ref, watch } from "vue";
 
 export default defineComponent({
   name: "Sidebar",
   props: {
-    bgColor: {
+    dark: {
+      type: Boolean,
+      default: false,
+    },
+    color: {
       type: String,
       default: "blue",
     },
+    bgColor: {
+      type: String,
+      default: "",
+    },
     textColor: {
       type: String,
-      default: "white",
+      default: "",
     },
     modelValue: {
       type: Boolean,
       default: true,
     },
   },
-  emits: ["update:modelValue"],
+  emits: ["update:modelValue", "update:dark"],
   setup(props, { emit }) {
+    const classes = computed(() => {
+      return {
+        [`bg-gray-100`]: !props.dark && !props.bgColor,
+        ["bg-gray-800"]: props.dark && !props.bgColor,
+        [`bg-${props.bgColor}`]: !!props.bgColor,
+        [`text-${props.color}-700`]: !props.dark && !props.textColor,
+        [`text-gray-100`]: props.dark && !props.textColor,
+        [`text-${props.textColor}`]: !!props.textColor,
+      };
+    });
+
     const mountSidebar = ref(props.modelValue);
     const closeSidebar = ref(props.modelValue);
 
@@ -46,6 +65,7 @@ export default defineComponent({
     );
 
     return {
+      classes,
       close,
       mountSidebar,
       closeSidebar,

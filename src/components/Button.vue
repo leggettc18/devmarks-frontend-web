@@ -13,7 +13,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   name: "Button",
@@ -43,23 +43,19 @@ export default defineComponent({
       default: "#",
     },
   },
+  emits: ["update:dark"],
   setup(props) {
-    let classes: Record<string, boolean>;
-    if (props.dark) {
-      classes = {
+    const classes = computed(() => {
+      return {
         rounded: props.rounded,
-        [`bg-${props.type}-700`]: true,
-        "text-white": true,
-        [`hover:bg-${props.type}-800`]: true,
+        [`bg-${props.type}-700`]: props.dark,
+        "text-white": props.dark,
+        [`hover:bg-${props.type}-800`]: props.dark,
+        [`bg-${props.type}-200`]: !props.dark,
+        [`text-${props.type}-700`]: !props.dark,
+        [`hover:bg-${props.type}-300`]: !props.dark,
       };
-    } else {
-      classes = {
-        rounded: props.rounded,
-        [`bg-${props.type}-200`]: true,
-        [`text-${props.type}-700`]: true,
-        [`hover:bg-${props.type}-300`]: true,
-      };
-    }
+    });
     return { classes };
   },
 });

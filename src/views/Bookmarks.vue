@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <dm-button dark type="primary" rounded @click="openDialog()">Add Bookmark</dm-button>
+      <dm-button
+        type="primary"
+        :dark="state.isDarkmode()"
+        rounded
+        @click="openDialog()"
+      >Add Bookmark</dm-button>
     </div>
     <TransitionRoot appear :show="dialogVisible" as="template">
       <Dialog as="div" class="fixed inset-0 z-10 overflow-y-auto" @close="closeDialog()">
@@ -31,7 +36,7 @@
               leave-to="opacity-0 scale-95"
             >
               <div
-                class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl"
+                class="dark:bg-gray-700 dark:text-gray-100 bg-white inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl rounded-2xl"
               >
                 <dialog-title
                   as="h3"
@@ -69,9 +74,9 @@
       <template v-else-if="error">Error: {{error.message}}</template>
       <template v-else-if="bookmarks">
         <div v-for="(bookmark, i) in bookmarks" :key="i">
-          <card color="primary" class="m-4">
+          <card :dark="state.isDarkmode()" color="primary" class="m-4 rounded-lg shadow">
             <div class="flex space-x-4 items-center">
-              <a :href="bookmark.url">{{bookmark.name}}</a>
+              <a :href="bookmark.url" class="hover:underline">{{bookmark.name}}</a>
               <dm-button type="danger" rounded @click="handleDelete(bookmark.id)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -208,6 +213,7 @@ export default defineComponent({
     };
 
     return {
+      state,
       dialogVisible,
       openDialog,
       closeDialog,
