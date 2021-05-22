@@ -61,7 +61,6 @@
           v-model="showSidebar"
           :dark="state.isDarkmode()"
           color="primary"
-          class="shadow-2xl"
         >
           <div router="true" class="sidebar-content px-4 py-4">
             <ul class="flex flex-col w-full">

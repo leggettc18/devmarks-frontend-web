@@ -1,7 +1,7 @@
 <template>
   <aside v-if="mountSidebar">
     <transition name="slide" appear @after-leave="close()">
-      <div v-show="closeSidebar" class="h-full" :class="classes">
+      <div v-show="closeSidebar" class="h-full shadow-2xl" :class="classes">
         <slot></slot>
       </div>
     </transition>
