@@ -36,11 +36,13 @@
               leave-to="opacity-0 scale-95"
             >
               <div
-                class="dark:bg-gray-700 dark:text-gray-100 bg-white inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl rounded-2xl"
+                class="inline-block w-full max-w-md p-6 my-8 overflow-hidden text-left align-middle transition-all transform shadow-xl rounded-2xl"
+                :class="{['bg-gray-700']: state.isDarkmode(), ['text-gray-100']: state.isDarkmode(), ['bg-white']: !state.isDarkmode()}"
               >
                 <dialog-title
                   as="h3"
-                  class="text-lg font-medium leading-6 text-gray-900 pb-4"
+                  class="text-lg font-medium leading-6 pb-4"
+                  :class="{['text-gray-900']: !state.isDarkmode(), ['text-gray-200']: state.isDarkmode()}"
                 >Add Bookmark</dialog-title>
                 <div>
                   <dm-input
@@ -60,8 +62,16 @@
                   <color-picker v-model="newBookmark.color" class="pb-8"></color-picker>
                 </div>
                 <span class="dialog-footer flex space-x-4">
-                  <dm-button type="danger" @click="dialogVisible = false">Cancel</dm-button>
-                  <dm-button type="primary" @click="handleSubmit()">Submit</dm-button>
+                  <dm-button
+                    :dark="state.isDarkmode()"
+                    type="danger"
+                    @click="dialogVisible = false"
+                  >Cancel</dm-button>
+                  <dm-button
+                    :dark="state.isDarkmode()"
+                    type="primary"
+                    @click="handleSubmit()"
+                  >Submit</dm-button>
                 </span>
               </div>
             </transition-child>
