@@ -13,10 +13,10 @@ import {
 import "@/assets/index.css";
 
 const graphqlUri: string = process.env.VUE_APP_GRAPHQL_URI
-  ? process.env.GRAPHQL_URI
+  ? process.env.VUE_APP_GRAPHQL_URI
   : "localhost";
 const graphqlPort: string = process.env.VUE_APP_GRAPHQL_PORT
-  ? process.env.GRAPHQL_PORT
+  ? process.env.VUE_APP_GRAPHQL_PORT
   : "9092";
 const authMiddleware = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem("user-token");
