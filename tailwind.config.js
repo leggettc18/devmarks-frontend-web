@@ -7,7 +7,7 @@ module.exports = {
     content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}', './public/**/*.html'],
     options: {
       safelist: {
-        standard: [/primary/, /secondary/, /info/, /danger/, /gray/]
+        standard: [/primary/, /secondary/, /info/, /danger/, /gray/, /warning/]
       }
     }
   },
