@@ -12,10 +12,10 @@ import {
 } from "@apollo/client/core";
 import "@/assets/index.css";
 
-const graphqlUri: string = process.env.GRAPHQL_URI
+const graphqlUri: string = process.env.VUE_APP_GRAPHQL_URI
   ? process.env.GRAPHQL_URI
   : "localhost";
-const graphqlPort: string = process.env.GRAPHQL_PORT
+const graphqlPort: string = process.env.VUE_APP_GRAPHQL_PORT
   ? process.env.GRAPHQL_PORT
   : "9092";
 const authMiddleware = new ApolloLink((operation, forward) => {
