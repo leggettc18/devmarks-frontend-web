@@ -12,6 +12,12 @@ import {
 } from "@apollo/client/core";
 import "@/assets/index.css";
 
+const graphqlUri: string = process.env.GRAPHQL_URI
+  ? process.env.GRAPHQL_URI
+  : "localhost";
+const graphqlPort: string = process.env.GRAPHQL_PORT
+  ? process.env.GRAPHQL_PORT
+  : "9092";
 const authMiddleware = new ApolloLink((operation, forward) => {
   const token = localStorage.getItem("user-token");
   operation.setContext({
@@ -23,7 +29,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 const httpLink = createHttpLink({
-  uri: "http://localhost:9092/graphql",
+  uri: `http://${graphqlUri}:${graphqlPort}/graphql`,
 });
 
 const cache = new InMemoryCache();
