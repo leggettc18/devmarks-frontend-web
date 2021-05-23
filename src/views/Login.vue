@@ -29,8 +29,8 @@
       </div>
     </template>
     <div class="flex justify-center space-x-4">
-      <dm-button type="primary" dark rounded @click.prevent="login()">Login</dm-button>
-      <dm-button type="gray" rounded>Cancel</dm-button>
+      <dm-button type="primary" :dark="state.isDarkmode()" rounded @click.prevent="login()">Login</dm-button>
+      <dm-button type="danger" :dark="state.isDarkmode()" rounded>Cancel</dm-button>
     </div>
     <div v-if="loginErrors && !loading">
       <div v-for="(e, i) of loginErrors.email" :key="i">{{e.extensions.message}}</div>

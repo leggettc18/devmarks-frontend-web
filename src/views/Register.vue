@@ -29,8 +29,13 @@
       </div>
     </template>
     <div class="flex justify-center space-x-4">
-      <dm-button type="primary" dark rounded @click.prevent="register(form)">Login</dm-button>
-      <dm-button type="gray" rounded>Cancel</dm-button>
+      <dm-button
+        type="primary"
+        :dark="state.isDarkmode()"
+        rounded
+        @click.prevent="register(form)"
+      >Login</dm-button>
+      <dm-button type="danger" :dark="state.isDarkmode()" rounded>Cancel</dm-button>
     </div>
   </div>
 </template>
