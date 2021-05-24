@@ -29,7 +29,7 @@ const authMiddleware = new ApolloLink((operation, forward) => {
 });
 
 const httpLink = createHttpLink({
-  uri: `http://${graphqlUri}:${graphqlPort}/graphql`,
+  uri: `https://${graphqlUri}:${graphqlPort}/graphql`,
 });
 
 const cache = new InMemoryCache();
