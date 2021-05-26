@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="text-2xl text-center">Register</h1>
     <dm-input
       v-model="form.email"
       type="email"
@@ -7,7 +8,7 @@
       name="email"
       color="primary"
       :error="registerErrors.email != null"
-      @update:modelValue="registerErros.email = null"
+      @update:modelValue="registerErrors.email = null"
     ></dm-input>
     <template v-if="registerErrors.email">
       <div v-for="(error, i) in registerErrors.email" :key="i">
@@ -35,7 +36,7 @@
         rounded
         @click.prevent="register(form)"
       >Login</dm-button>
-      <dm-button type="danger" :dark="state.isDarkmode()" rounded>Cancel</dm-button>
+      <dm-button type="danger" :dark="state.isDarkmode()" rounded router-link link-to="/">Cancel</dm-button>
     </div>
   </div>
 </template>
