@@ -1,7 +1,7 @@
 <template>
   <router-link
     v-if="routerLink"
-    :to="link-to"
+    :to="linkTo"
     :class="classes"
     class="transition duration-300 p-2 shadow"
   >

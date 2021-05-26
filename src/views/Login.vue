@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1 class="text-2xl text-center">Login</h1>
     <dm-input
       v-model="form.email"
       type="email"
@@ -30,7 +31,7 @@
     </template>
     <div class="flex justify-center space-x-4">
       <dm-button type="primary" :dark="state.isDarkmode()" rounded @click.prevent="login()">Login</dm-button>
-      <dm-button type="danger" :dark="state.isDarkmode()" rounded>Cancel</dm-button>
+      <dm-button type="danger" :dark="state.isDarkmode()" rounded router-link link-to="/">Cancel</dm-button>
     </div>
     <div v-if="loginErrors && !loading">
       <div v-for="(e, i) of loginErrors.email" :key="i">{{e.extensions.message}}</div>

@@ -29,10 +29,20 @@
         <template v-if="!isLoggedIn()">
           <div class="flex space-x-2 align-center">
             <div>
-              <dm-button :dark="state.isDarkmode()" router-link to="/register" type="info">Register</dm-button>
+              <dm-button
+                :dark="state.isDarkmode()"
+                router-link
+                link-to="/register"
+                type="info"
+              >Register</dm-button>
             </div>
             <div class="pr-2">
-              <dm-button :dark="state.isDarkmode()" router-link to="/login" type="secondary">Login</dm-button>
+              <dm-button
+                :dark="state.isDarkmode()"
+                router-link
+                link-to="/login"
+                type="secondary"
+              >Login</dm-button>
             </div>
           </div>
         </template>

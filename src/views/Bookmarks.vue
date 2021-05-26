@@ -52,26 +52,32 @@
                     label="Name"
                     color="primary"
                   ></dm-input>
-                  <dm-input
-                    v-model="newBookmark.url"
-                    type="text"
-                    name="url"
-                    label="URL"
-                    color="primary"
-                  ></dm-input>
+                  <div class="flex items-baseline gap-4">
+                    <p
+                      class="rounded-lg p-1"
+                      :class="{['bg-primary-300']: !state.isDarkmode(),  ['bg-gray-500']: state.isDarkmode()}"
+                    >https://</p>
+                    <dm-input
+                      v-model="newBookmark.url"
+                      type="text"
+                      name="url"
+                      label="URL"
+                      color="primary"
+                    ></dm-input>
+                  </div>
                   <color-picker v-model="newBookmark.color" class="pb-8"></color-picker>
                 </div>
                 <span class="dialog-footer flex space-x-4">
                   <dm-button
                     :dark="state.isDarkmode()"
-                    type="danger"
-                    @click="dialogVisible = false"
-                  >Cancel</dm-button>
-                  <dm-button
-                    :dark="state.isDarkmode()"
                     type="primary"
                     @click="handleSubmit()"
                   >Submit</dm-button>
+                  <dm-button
+                    :dark="state.isDarkmode()"
+                    type="danger"
+                    @click="dialogVisible = false"
+                  >Cancel</dm-button>
                 </span>
               </div>
             </transition-child>
@@ -191,6 +197,7 @@ export default defineComponent({
     }));
 
     const handleSubmit = () => {
+      newBookmark.value.url = "https://" + newBookmark.value.url;
       submitNewBookmark();
       dialogVisible.value = false;
     };

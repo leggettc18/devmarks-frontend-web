@@ -10,7 +10,7 @@ import {
   createHttpLink,
   InMemoryCache,
 } from "@apollo/client/core";
-import "@/assets/index.css";
+import "@/assets/tailwind.css";
 
 const graphqlUri: string = process.env.VUE_APP_GRAPHQL_URI
   ? process.env.VUE_APP_GRAPHQL_URI
