@@ -70,14 +70,14 @@
                 <span class="dialog-footer flex space-x-4">
                   <dm-button
                     :dark="state.isDarkmode()"
-                    type="danger"
-                    @click="dialogVisible = false"
-                  >Cancel</dm-button>
-                  <dm-button
-                    :dark="state.isDarkmode()"
                     type="primary"
                     @click="handleSubmit()"
                   >Submit</dm-button>
+                  <dm-button
+                    :dark="state.isDarkmode()"
+                    type="danger"
+                    @click="dialogVisible = false"
+                  >Cancel</dm-button>
                 </span>
               </div>
             </transition-child>
