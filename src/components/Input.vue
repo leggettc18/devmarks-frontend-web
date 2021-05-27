@@ -90,7 +90,6 @@ input:focus ~ label,
 select:focus ~ label {
   /* @apply text-black; left-0; */
   --tw-text-opacity: 1;
-  color: rgba(0, 0, 0, var(--tw-text-opacity));
   left: 0px;
 }
 </style>
