@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watchEffect } from "vue";
 import { TransitionRoot } from "@headlessui/vue";
 import DmInput from "@/components/Input.vue";
 import { onClickOutside } from "@vueuse/core";
@@ -93,7 +93,7 @@ export default defineComponent({
     },
   },
   emits: ["update:modelValue"],
-  setup(_, { emit }) {
+  setup(props, { emit }) {
     const colorPopup = ref(null);
     const isOpen = ref(false);
     const colors = [
@@ -113,9 +113,14 @@ export default defineComponent({
       emit("update:modelValue", newColor);
       isOpen.value = false;
     };
+    const inputValue = ref(props.modelValue);
 
     onClickOutside(colorPopup, () => {
       isOpen.value = false;
+    });
+
+    watchEffect(() => {
+      colorSelected.value = inputValue.value;
     });
 
     return {
