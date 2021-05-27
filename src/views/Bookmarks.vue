@@ -1,12 +1,7 @@
 <template>
   <div>
     <div class="flex justify-center">
-      <dm-button
-        type="primary"
-        :dark="state.isDarkmode()"
-        rounded
-        @click="openDialog()"
-      >Add Bookmark</dm-button>
+      <dm-button type="primary" :dark="state.isDarkmode()" rounded @click="handleNew()">Add Bookmark</dm-button>
     </div>
     <TransitionRoot appear :show="dialogVisible" as="template">
       <Dialog as="div" class="fixed inset-0 z-10 overflow-y-auto" @close="closeDialog()">
@@ -73,11 +68,7 @@
                     type="primary"
                     @click="handleSubmit()"
                   >Submit</dm-button>
-                  <dm-button
-                    :dark="state.isDarkmode()"
-                    type="danger"
-                    @click="dialogVisible = false"
-                  >Cancel</dm-button>
+                  <dm-button :dark="state.isDarkmode()" type="danger" @click="handleClose()">Cancel</dm-button>
                 </span>
               </div>
             </transition-child>
@@ -186,6 +177,7 @@ export default defineComponent({
     const closeDialog = () => {
       dialogVisible.value = false;
     };
+
     const { result, loading, error } = useGetBookmarksQuery();
     const bookmarks = useResult(result);
 
@@ -201,6 +193,17 @@ export default defineComponent({
       url: "",
       color: "",
     } as BookmarkCreate);
+
+    const handleNew = () => {
+      editing.value = false;
+      dialogBookmark.value = { id: "", ...newBookmark.value };
+      openDialog();
+    };
+
+    const handleClose = () => {
+      editing.value = false;
+      closeDialog();
+    };
 
     const { mutate: submitNewBookmark } = useNewBookmarkMutation(() => ({
       variables: newBookmark.value,
@@ -310,6 +313,8 @@ export default defineComponent({
       loading,
       error,
       dialogBookmark,
+      handleNew,
+      handleClose,
       handleSubmit,
       handleDelete,
       handleEdit,
