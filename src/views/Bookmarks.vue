@@ -84,7 +84,12 @@
           <card :dark="state.isDarkmode()" color="primary" class="m-4 rounded-lg shadow">
             <div class="flex space-x-4 items-center">
               <a :href="'https://' + bookmark.url" class="hover:underline">{{bookmark.name}}</a>
-              <dm-button type="info" rounded @click="handleEdit(bookmark)">
+              <dm-button
+                type="info"
+                rounded
+                :dark="state.isDarkmode()"
+                @click="handleEdit(bookmark)"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-5 w-5"
@@ -101,7 +106,12 @@
                   />
                 </svg>
               </dm-button>
-              <dm-button type="danger" rounded @click="handleDelete(bookmark.id)">
+              <dm-button
+                type="danger"
+                rounded
+                :dark="state.isDarkmode()"
+                @click="handleDelete(bookmark.id)"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-6 w-6"
