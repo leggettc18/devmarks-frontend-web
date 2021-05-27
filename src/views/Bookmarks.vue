@@ -46,7 +46,7 @@
                 >Add Bookmark</dialog-title>
                 <div>
                   <dm-input
-                    v-model="newBookmark.name"
+                    v-model="dialogBookmark.name"
                     type="text"
                     name="name"
                     label="Name"
@@ -58,14 +58,14 @@
                       :class="{['bg-primary-300']: !state.isDarkmode(),  ['bg-gray-500']: state.isDarkmode()}"
                     >https://</p>
                     <dm-input
-                      v-model="newBookmark.url"
+                      v-model="dialogBookmark.url"
                       type="text"
                       name="url"
                       label="URL"
                       color="primary"
                     ></dm-input>
                   </div>
-                  <color-picker v-model="newBookmark.color" class="pb-8"></color-picker>
+                  <color-picker v-model="dialogBookmark.color" class="pb-8"></color-picker>
                 </div>
                 <span class="dialog-footer flex space-x-4">
                   <dm-button
@@ -92,7 +92,7 @@
         <div v-for="(bookmark, i) in bookmarks" :key="i">
           <card :dark="state.isDarkmode()" color="primary" class="m-4 rounded-lg shadow">
             <div class="flex space-x-4 items-center">
-              <a :href="bookmark.url" class="hover:underline">{{bookmark.name}}</a>
+              <a :href="'https://' + bookmark.url" class="hover:underline">{{bookmark.name}}</a>
               <dm-button type="info" rounded @click="handleEdit(bookmark)">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -137,7 +137,7 @@
 <script lang="ts">
 import { defineComponent, Ref, ref } from "vue";
 import { useState } from "@/store/store";
-import { Bookmark, BookmarkCreate } from "@/models/bookmark";
+import { Bookmark, BookmarkCreate, BookmarkUpdate } from "@/models/bookmark";
 import { useResult } from "@vue/apollo-composable";
 import {
   GetBookmarksDocument,
@@ -145,6 +145,7 @@ import {
   useGetBookmarksQuery,
   useNewBookmarkMutation,
   useDeleteBookmarkMutation,
+  useUpdateBookmarkMutation,
 } from "../generated/graphql";
 import {
   TransitionChild,
@@ -172,6 +173,7 @@ export default defineComponent({
     ColorPicker,
   },
   setup() {
+    const editing = ref(false);
     const state = useState();
     const token = state.getToken();
     const dialogVisible: Ref<boolean> = ref(false);
@@ -186,6 +188,13 @@ export default defineComponent({
     };
     const { result, loading, error } = useGetBookmarksQuery();
     const bookmarks = useResult(result);
+
+    const dialogBookmark = ref({
+      id: "",
+      name: "",
+      color: "",
+      url: "",
+    } as Bookmark);
 
     const newBookmark = ref({
       name: "",
@@ -213,15 +222,55 @@ export default defineComponent({
       },
     }));
 
-    const handleSubmit = () => {
-      newBookmark.value.url = "https://" + newBookmark.value.url;
-      submitNewBookmark();
-      dialogVisible.value = false;
-    };
+    const updatedBookmark = ref({
+      id: "",
+      name: "",
+      url: "",
+      color: "",
+    } as BookmarkUpdate);
 
     const handleEdit = (bookmark: Bookmark) => {
-      newBookmark.value = bookmark;
+      dialogBookmark.value = { ...bookmark };
       dialogVisible.value = true;
+      editing.value = true;
+    };
+
+    const { mutate: updateBookmark } = useUpdateBookmarkMutation(() => ({
+      variables: updatedBookmark.value,
+      update: (cache, { data: updateBookmark }) => {
+        const data = cache.readQuery<GetBookmarksQuery>({
+          query: GetBookmarksDocument,
+        });
+        const bookmark = {
+          id: updateBookmark?.updateBookmark.id,
+          name: updateBookmark?.updateBookmark.name,
+          url: updateBookmark?.updateBookmark.url,
+          color: updateBookmark?.updateBookmark.color,
+        } as Bookmark;
+        if (data?.bookmarks) {
+          const indexToUpdate = data.bookmarks.findIndex(
+            (oldBookmark) => oldBookmark.id === bookmark.id
+          );
+          const updatedBookmarks = [...data.bookmarks];
+          updatedBookmarks[indexToUpdate] = bookmark;
+          cache.writeQuery<GetBookmarksQuery>({
+            query: GetBookmarksDocument,
+            data: { bookmarks: updatedBookmarks },
+          });
+        }
+      },
+    }));
+
+    const handleSubmit = () => {
+      if (editing.value) {
+        updatedBookmark.value = dialogBookmark.value;
+        updateBookmark();
+        editing.value = false;
+      } else {
+        newBookmark.value = dialogBookmark.value;
+        submitNewBookmark();
+      }
+      dialogVisible.value = false;
     };
 
     const deleteId = ref<number | null>(null);
@@ -252,6 +301,7 @@ export default defineComponent({
     };
 
     return {
+      editing,
       state,
       dialogVisible,
       openDialog,
@@ -259,7 +309,7 @@ export default defineComponent({
       bookmarks,
       loading,
       error,
-      newBookmark,
+      dialogBookmark,
       handleSubmit,
       handleDelete,
       handleEdit,

@@ -10,3 +10,10 @@ export interface BookmarkCreate {
   url: string;
   color?: string;
 }
+
+export interface BookmarkUpdate {
+  id: string;
+  name: string;
+  url: string;
+  color?: string;
+}
