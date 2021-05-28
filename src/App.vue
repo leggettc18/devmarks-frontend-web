@@ -51,12 +51,27 @@
             <div class="pr-2">
               <dm-button :dark="state.isDarkmode()" type="danger" @click="logout">Logout</dm-button>
             </div>
-            <div class="pr-2">
+            <div>
               <dm-button
                 :dark="state.isDarkmode()"
-                type="info"
-                @click="state.toggleDarkmode()"
-              >Toggle Theme</dm-button>
+                type="gray"
+                router-link
+                link-to="/user-settings"
+                class="block"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </dm-button>
             </div>
           </div>
         </template>

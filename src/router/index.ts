@@ -32,6 +32,11 @@ const routes: Array<RouteRecordRaw> = [
     name: "Bookmarks",
     component: () => import("@/views/Bookmarks.vue"),
   },
+  {
+    path: "/user-settings",
+    name: "User Settings",
+    component: () => import("@/views/UserSettings.vue"),
+  },
 ];
 
 const router = createRouter({

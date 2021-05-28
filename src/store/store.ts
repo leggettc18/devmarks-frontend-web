@@ -63,8 +63,18 @@ class State {
     }
   }
 
+  setDarkmode(darkmode: boolean) {
+    this.dark = darkmode;
+    if (darkmode) {
+      localStorage.theme = "dark";
+    } else {
+      localStorage.theme = "light";
+    }
+  }
+
   darkmodeOSPreference() {
     localStorage.removeItem("theme");
+    this.dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   }
 
   isDarkmode() {
